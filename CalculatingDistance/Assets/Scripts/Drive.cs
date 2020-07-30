@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 // A very simplistic car driving on the x-z plane. 
 
@@ -39,7 +40,41 @@ public class Drive : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CalculateDistance();
+
+            //Calculate Dot Product
+            CalculateAngle();
         }
+    }
+
+    private void CalculateAngle()
+    {
+        //Facing position of a character is always Z direction (which is Vector3.up)
+        var tF = transform.up; //facing position of the tank
+        var fD = fuel.transform.position - transform.position; // target position - current position = direction
+
+        //Draw rays for debugging
+        //Debug.DrawRay(transform.position, tF, Color.green, 2); //green line is not visible
+        Debug.DrawRay(transform.position, tF * 10, Color.green, 2); //green line becomes visible by multiplying tF with 10
+        Debug.DrawRay(transform.position, fD, Color.red, 2);
+
+        /*
+            We know (normally used for camera of weapons)
+            < 90 degrees => v.w > 0 (w object is infront of v object)
+            = 90 degrees => v.w = 0 (w object is facing the v object)
+            > 90 degrees => v.w < 0 (w object is behind the v object)
+
+            Angle calculation
+            Anlge(Theta) = cos-1(v.w/|v||w|) //cost inverse of (dot product of vectors V and W divided by product of lengths of V and W)
+         */
+        var dot = tF.x * fD.x + tF.y * fD.y; // Dot Product
+        var angleInRadians = Mathf.Acos(dot / (tF.magnitude * fD.magnitude));
+        var angleInDegrees = angleInRadians * Mathf.Rad2Deg;
+
+        //Debug.Log($"Angle: {angleInRadians}"); //Angle in radians
+        Debug.Log($"Angle: {angleInDegrees}"); //Angle in degrees
+
+        var unityAngle = Vector3.Angle(tF, fD);
+        Debug.Log($"Angle: {unityAngle}"); //Angle in degrees
     }
 
     private void CalculateDistance()
