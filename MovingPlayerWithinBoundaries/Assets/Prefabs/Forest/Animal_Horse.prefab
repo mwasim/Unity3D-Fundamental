@@ -659,8 +659,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3541504086887642161}
   - component: {fileID: 3541504086880689697}
-  - component: {fileID: 3541504086957530813}
-  - component: {fileID: 3627979346959654175}
+  - component: {fileID: -8340806884976155210}
+  - component: {fileID: -5928875110078999333}
+  - component: {fileID: -1756801380342562677}
+  - component: {fileID: 7575942206811726065}
   m_Layer: 0
   m_Name: Animal_Horse
   m_TagString: Untagged
@@ -707,7 +709,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3541504086957530813
+--- !u!114 &-8340806884976155210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -719,8 +721,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1877104f3884d378295a1d4ce4375d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.75
---- !u!114 &3627979346959654175
+  speed: 3.7848277
+--- !u!114 &-5928875110078999333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -730,6 +732,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f88370dee41c14170bd7b55feaa964c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &-1756801380342562677
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541504086887978217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.562973, y: 40.201202, z: 44.09422}
+  m_Center: {x: -0.26833117, y: 17.478926, z: 5.0644016}
+--- !u!114 &7575942206811726065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541504086887978217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6213451a2f166470e8b978ba24b73aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3541504086887981705

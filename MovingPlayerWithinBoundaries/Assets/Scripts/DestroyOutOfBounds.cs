@@ -19,6 +19,13 @@ public class DestroyOutOfBounds : MonoBehaviour
         if (shouldDestroy)
         {
             Destroy(gameObject); //gameObject is the object this script is applied to
-        }
+
+
+            //lower bound is checked only for the Animals so, if the animals are destroyed on reaching the lower bound, the game should over
+            if (transform.position.z < lowerBound)
+            {
+                Debug.Log("Game Over!");
+            }
+        }        
     }
 }
