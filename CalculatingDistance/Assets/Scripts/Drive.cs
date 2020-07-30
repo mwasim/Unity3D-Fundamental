@@ -58,6 +58,7 @@ public class Drive : MonoBehaviour
         Debug.DrawRay(transform.position, fD, Color.red, 2);
 
         /*
+         * DOT PRODUCT
             We know (normally used for camera of weapons)
             < 90 degrees => v.w > 0 (w object is infront of v object)
             = 90 degrees => v.w = 0 (w object is facing the v object)
@@ -75,6 +76,37 @@ public class Drive : MonoBehaviour
 
         var unityAngle = Vector3.Angle(tF, fD);
         Debug.Log($"Angle: {unityAngle}"); //Angle in degrees
+
+
+        /*
+         * CROSS PRODUCT
+                We know if
+                Cross Product's Z value > 0 (we want to rotate/turn in the Anti Clockwise direction)
+                Cross Product's Z value < 0 (we want to rotate/turn in the Clockwise direction)
+             */
+        //when spacebar is pressed, face the tank exactly towards the fuel
+        //We need to rotate in the z axis
+        //transform.Rotate(0, 0, angleInDegrees); //This mostly rotates the tank towards fuel but in one quadrant it rotates in the opposite direction
+
+        //To fix the problem, we need the CROSS PRODUCT (Custom approach)
+        var clockwise = Cross(tF, fD).z < 0 ? -1 : 1; //determine clockwise or any-clockwise
+
+        //Unity's approach, we used the SignedAngle
+        var unityAngleCrossProduct = Vector3.SignedAngle(tF, fD, Vector3.forward); //Vector3.forward = Z Axix
+
+        //transform.Rotate(0, 0, angleInDegrees * clockwise); //This custom approach also works perfect
+        transform.Rotate(0, 0, unityAngleCrossProduct); //Unity's approach
+    }
+
+    private Vector3 Cross(Vector3 v, Vector3 w)
+    {
+        var xMult = v.y * w.z - v.z * w.y; //doesn't cross X (Notice)
+        var yMult = v.z * w.x - v.x * w.z; //doesn't cross Y
+        var zMult = v.x * w.y - v.y * w.x; //doesn't cross Z
+
+        var crossProduct = new Vector3(xMult, yMult, zMult);
+
+        return crossProduct;
     }
 
     private void CalculateDistance()
