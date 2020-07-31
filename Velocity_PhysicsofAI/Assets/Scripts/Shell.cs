@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Shell - This script is using custom coding, and disabled in the scene
+ */
 public class Shell : MonoBehaviour
 {
     public GameObject explosion;
