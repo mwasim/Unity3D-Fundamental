@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     public AudioClip crashSound;
 
     [Header("Other Settings")]
-    public FixedJoystick joystick;
     public float jumpForce = 10.0f;
     public float gravityModifier = 2;
     public bool isGameOver = false;
@@ -22,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private bool isPlayerOnTheGround = false;
     private Animator playerAnimator;
     private AudioSource playerAudioSource;
+
+    private readonly Vector3 DefaultGravity = new Vector3(0.0f, -9.8f, 0.0f);
 
     // Start is called before the first frame update
     void Start()
@@ -37,19 +38,27 @@ public class PlayerController : MonoBehaviour
 
             //Note: Gravity can be turned off for an individual rigidbody using its useGravity property.
          */
-        Physics.gravity *= gravityModifier;
+        //Debug.Log("Start - Before Mod: Physics.gravity: " + Physics.gravity);
+        Physics.gravity = DefaultGravity * gravityModifier;
+        //Debug.Log("Start - After Mod: Physics.gravity: " + Physics.gravity);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        var joyStickVertical = joystick.Vertical;
-        //if (Input.GetKeyDown(KeyCode.Space) && isPlayerOnTheGround && !isGameOver)
-        if (joystick.Vertical > 0.5 && isPlayerOnTheGround && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CheckAndJump();
+        }
+    }
+
+    public void CheckAndJump()
+    {
+        //if (isPlayerOnTheGround && !isGameOver)
+        if (isPlayerOnTheGround && !isGameOver)
         {
             Jump();
         }
-
     }
 
     private void Jump()
@@ -59,6 +68,8 @@ public class PlayerController : MonoBehaviour
             Add an instant force impulse to the rigidbody, using its mass.
             https://docs.unity3d.com/ScriptReference/ForceMode.Impulse.html
          */
+        Debug.Log("Jump Force: " + jumpForce);
+        Debug.Log("Jump - Physics.gravity: " + Physics.gravity);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         isPlayerOnTheGround = false; //when jumped, the player is no longer on the ground
@@ -95,7 +106,7 @@ public class PlayerController : MonoBehaviour
             //play crash sound
             playerAudioSource.PlayOneShot(crashSound, 1.0f);
 
-            Invoke(nameof(RestartGame), 10.0f);
+            Invoke(nameof(RestartGame), 5.0f);
         }
     }
 
