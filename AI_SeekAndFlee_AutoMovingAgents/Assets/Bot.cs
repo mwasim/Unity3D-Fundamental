@@ -1,17 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class Bot : MonoBehaviour
 {
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
+    private Drive driveScript;
 
     public GameObject target;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        driveScript = target.GetComponent<Drive>();
     }
 
     private void Seek(Vector3 destinationLocation)
@@ -39,7 +39,7 @@ public class Bot : MonoBehaviour
     private void Pursue()
     {
         //Predict future location
-        var targetCurrentSpeed = target.GetComponent<Drive>().currentSpeed;
+        var targetCurrentSpeed = driveScript.currentSpeed;
 
         var targetDirection = target.transform.position - transform.position;
         /*
@@ -66,6 +66,23 @@ public class Bot : MonoBehaviour
         Debug.Log("PURSUING...");
     }
 
+    /*
+        Evade is similar to Pursue. Except it uses the Flee instead of Seek (Opposite of Pursue).
+     */
+    private void Evade()
+    {
+        var targetCurrentSpeed = driveScript.currentSpeed;
+        var targetDirection = target.transform.position - transform.position;        
+
+        var lookAhead = targetDirection.magnitude / (agent.speed + targetCurrentSpeed);
+
+        //Determin flee location, and seek
+        //target.transform.forward has magnitude = 1 (already normalized) -> forward is the direction in which the object is moving
+        var fleeLocation = target.transform.position + target.transform.forward * lookAhead;
+
+        Flee(fleeLocation);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -76,6 +93,9 @@ public class Bot : MonoBehaviour
         //Flee(target.transform.position);
 
         //Testing Pursuite
-        Pursue();
+        //Pursue();
+
+        //Testing Evade
+        Evade();
     }
 }
