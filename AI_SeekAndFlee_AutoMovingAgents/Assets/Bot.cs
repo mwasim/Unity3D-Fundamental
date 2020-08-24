@@ -83,6 +83,29 @@ public class Bot : MonoBehaviour
         Flee(fleeLocation);
     }
 
+    Vector3 wanderTarget = Vector3.zero;
+    private void Wander()
+    {
+        //These variables can be adjusted to adjust Wander behavior
+        //Ensure the position you're calculating exists on the NavMesh, otherwise it may cause location issues
+        var wanderRadius = 10.0f; //adjust the wander circle
+        var wanderDistance = 1.0f;
+        var wanderJitter = 1.0f;
+
+        var wanderAxisValue = Random.Range(-1.0f, 1.0f) * wanderJitter;
+        wanderTarget += new Vector3(wanderAxisValue,
+            0f,
+            wanderAxisValue);
+
+        wanderTarget.Normalize(); //sets magnitude to 1
+        wanderTarget *= wanderRadius;
+
+        var targetLocal = wanderTarget + new Vector3(0, 0, wanderDistance);
+        var targetWorld = this.gameObject.transform.InverseTransformVector(targetLocal);
+
+        Seek(targetWorld);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -96,6 +119,9 @@ public class Bot : MonoBehaviour
         //Pursue();
 
         //Testing Evade
-        Evade();
+        //Evade();
+
+        //Testing Wander
+        Wander();
     }
 }
