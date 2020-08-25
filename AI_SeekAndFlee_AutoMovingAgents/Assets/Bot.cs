@@ -217,6 +217,14 @@ public class Bot : MonoBehaviour
         coolDown = false;
     }
 
+    //Challenge - If the distance between cop and the robber is more than 10, then robber will wander, otherwise pursue or cleverly hides
+    private bool TargetInRange()
+    {
+        if (Vector3.Distance(transform.position, target.transform.position) < 10) return true;
+
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -251,9 +259,30 @@ public class Bot : MonoBehaviour
             For example, robber (this object) can sneak upon the cop while the cop is looking away
             And when cop is looking towards the robber (e.g. upto 60 degrees angle), then robber can hide from the cop
          */
-        if (!coolDown) 
+        //if (!coolDown) 
+        //{
+        //    if (CanSeeTarget() && TargetCanSeeMe())
+        //    {
+        //        CleverHide();
+        //        coolDown = true;
+        //        Invoke(nameof(ResetCoolDown), 5.0f); //the robber will pause (or cool down) for few seconds
+        //    }
+        //    else
+        //    {
+        //        Pursue();
+        //    }
+        //}
+
+
+        //Complex behavior challenge
+        // - If the distance between cop and the robber is more than 10, then robber will wander, otherwise pursue or cleverly hides
+        if (!coolDown)
         {
-            if (CanSeeTarget() && TargetCanSeeMe())
+            if (!TargetInRange())
+            {
+                Wander();
+            }
+            else if (CanSeeTarget() && TargetCanSeeMe())
             {
                 CleverHide();
                 coolDown = true;
