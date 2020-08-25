@@ -72,7 +72,7 @@ public class Bot : MonoBehaviour
     private void Evade()
     {
         var targetCurrentSpeed = driveScript.currentSpeed;
-        var targetDirection = target.transform.position - transform.position;        
+        var targetDirection = target.transform.position - transform.position;
 
         var lookAhead = targetDirection.magnitude / (agent.speed + targetCurrentSpeed);
 
@@ -106,6 +106,95 @@ public class Bot : MonoBehaviour
         Seek(targetWorld);
     }
 
+    //Find the best hiding place/spot (can be closest or furtherest)
+    private void Hide()
+    {
+        //find the closest hiding spot
+        var distance = Mathf.Infinity;
+        var closestSpotToHide = Vector3.zero;
+
+        foreach (var hidingSpot in World.Instance.HidingSpots)
+        {
+            var hideDirection = hidingSpot.transform.position - target.transform.position;
+            var hidePosition = hidingSpot.transform.position + hideDirection.normalized * 10; //position to the hiding spot with little bit of distance (hideDirection.normalized * 5)
+
+            var distanceToHide = Vector3.Distance(transform.position, hidePosition);
+            if (distanceToHide < distance)
+            {
+                closestSpotToHide = hidePosition;
+                distance = distanceToHide;
+
+                Debug.Log("Found closes spot at distance: " + distance);
+            }
+            else
+            {
+                Debug.Log("Couldn't find the closest spot");
+            }
+        }
+
+        Seek(closestSpotToHide); //hide behind the hiding spot using Seek
+        Debug.Log("Seeking: " + closestSpotToHide);
+    }
+
+    /*
+        As the ray (from the target/cop) collides with the tree's collider, from the other side of the collider we can determine the hiding spot
+     */
+    private void CleverHide()
+    {
+        //find the closest hiding spot
+        var distance = Mathf.Infinity;
+        var closestSpotToHide = Vector3.zero;
+        var chosenDirection = Vector3.zero;
+        var chosenHidingSpotGO = World.Instance.HidingSpots[0]; //initialize with the first game object
+
+        foreach (var hidingSpot in World.Instance.HidingSpots)
+        {
+            var hideDirection = hidingSpot.transform.position - target.transform.position;
+            var hidePosition = hidingSpot.transform.position + hideDirection.normalized * 10; //position to the hiding spot with little bit of distance (hideDirection.normalized * 5)
+
+            var distanceToHide = Vector3.Distance(transform.position, hidePosition);
+            if (distanceToHide < distance)
+            {
+                closestSpotToHide = hidePosition;
+                chosenDirection = hideDirection;
+                chosenHidingSpotGO = hidingSpot;
+                distance = distanceToHide;
+
+                Debug.Log("Found closes spot at distance: " + distance);
+            }
+            else
+            {
+                Debug.Log("Couldn't find the closest spot");
+            }
+        }
+
+        //Do the raycast to determine if the agent is behind the collider
+        var hideCollider = chosenHidingSpotGO.GetComponent<Collider>();
+        var backRay = new Ray(closestSpotToHide, -chosenDirection.normalized);
+
+        RaycastHit info;
+        var hitDistance = 250.0f; //ensure this distance to cast ray is more than the distance to to hide used above (e.g. 10) in the hidePosition calculation
+
+        hideCollider.Raycast(backRay, out info, hitDistance);
+
+
+        //Seek(closestSpotToHide); //hide behind the hiding spot using Seek
+        Seek(info.point + chosenDirection.normalized * 2); //add little more distance to the point (e.g. distance between the tree and the spot where the agent will hide
+
+        Debug.Log("Seeking: " + closestSpotToHide);
+    }
+
+    private bool CanSeeTarget()
+    {
+        var rayToTarget = target.transform.position - transform.position;
+
+        if (Physics.Raycast(transform.position, rayToTarget, out RaycastHit info))
+        {
+            if (info.transform.gameObject.CompareTag("cop")) return true;
+        }
+
+        return false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -122,6 +211,16 @@ public class Bot : MonoBehaviour
         //Evade();
 
         //Testing Wander
-        Wander();
+        //Wander();
+
+        //Testing Hide
+        //Hide();
+
+        //Testing CleverHide
+        //hide if can see the target
+        if (CanSeeTarget())
+        {
+            CleverHide();
+        }
     }
 }
