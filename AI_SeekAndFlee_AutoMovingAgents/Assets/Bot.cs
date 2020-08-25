@@ -195,6 +195,28 @@ public class Bot : MonoBehaviour
 
         return false;
     }
+
+    //Complex behaviors
+    /*
+        For example, robber (this object) can sneak upon the cop while the cop is looking away
+        And when cop is looking towards the robber (e.g. upto 60 degrees angle), then robber can hide from the cop
+     */
+    private bool TargetCanSeeMe()
+    {
+        var toAgent = transform.position - target.transform.position;
+        var lookingAngle = Vector3.Angle(target.transform.forward, toAgent);
+
+        if (lookingAngle < 60) return true;
+
+        return false;
+    }
+
+    private bool coolDown = false;
+    private void ResetCoolDown()
+    {
+        coolDown = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -218,9 +240,29 @@ public class Bot : MonoBehaviour
 
         //Testing CleverHide
         //hide if can see the target
-        if (CanSeeTarget())
+        //if (CanSeeTarget())
+        //{
+        //    CleverHide();
+        //}
+
+
+        //Testing Complex behavior
+        /*
+            For example, robber (this object) can sneak upon the cop while the cop is looking away
+            And when cop is looking towards the robber (e.g. upto 60 degrees angle), then robber can hide from the cop
+         */
+        if (!coolDown) 
         {
-            CleverHide();
-        }
-    }
+            if (CanSeeTarget() && TargetCanSeeMe())
+            {
+                CleverHide();
+                coolDown = true;
+                Invoke(nameof(ResetCoolDown), 5.0f); //the robber will pause (or cool down) for few seconds
+            }
+            else
+            {
+                Pursue();
+            }
+        }        
+    }    
 }
