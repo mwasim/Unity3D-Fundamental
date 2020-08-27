@@ -15,7 +15,9 @@ public class GoToCubicleAction : GAction
     {
         GWorld.Instance.World.ModifyState("Treated", 1);
 
-        inventory.RemoveItem(target); //once the patient is treated, remove the cubicle       
+        inventory.RemoveItem(target); //once the patient is treated, remove the cubicle
+
+        GWorld.Instance.World.ModifyState("FreeCubicle", 1); //give back cubicle
 
         return true;
     }

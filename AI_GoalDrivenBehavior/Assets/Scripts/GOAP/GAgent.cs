@@ -50,7 +50,9 @@ public class GAgent : MonoBehaviour
     {
         if (currentAction != null && currentAction.running)
         {
-            if (currentAction.agent.hasPath && currentAction.agent.remainingDistance < 1f)
+            var distanceToTarget = Vector3.Distance(currentAction.target.transform.position, transform.position); //actual distance
+            //if (currentAction.agent.hasPath && distanceToTarget < 2f) //currentAction.agent.remainingDistance < 0.5f sometimes causes problems, so we're using distanceToTarget
+            if (currentAction.agent.hasPath && distanceToTarget < 2f) //currentAction.agent.remainingDistance < 0.5f sometimes causes problems, so we're using distanceToTarget
             {
                 if (!invoked)
                 {

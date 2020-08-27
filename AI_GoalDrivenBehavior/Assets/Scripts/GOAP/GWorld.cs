@@ -16,6 +16,9 @@ public sealed class GWorld
         patients = new Queue<GameObject>();
        
         SetupCubicles();
+
+        //speed up everything
+        Time.timeScale = 5; //5 times faster
     }
 
     private static void SetupCubicles()

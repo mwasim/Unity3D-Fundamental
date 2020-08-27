@@ -2271,7 +2271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patientPrefab: {fileID: 7917154381971689309, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
-  numberOfPatients: 1
+  numberOfPatients: 5
 --- !u!1 &1445506242
 GameObject:
   m_ObjectHideFlags: 0
@@ -4348,6 +4348,10 @@ PrefabInstance:
     - target: {fileID: 7917154381971689309, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
       propertyPath: m_Name
       value: Patient
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917154381971689309, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7917461620091273929, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
       propertyPath: m_LocalPosition.x

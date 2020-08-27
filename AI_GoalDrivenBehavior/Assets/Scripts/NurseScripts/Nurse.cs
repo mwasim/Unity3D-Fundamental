@@ -9,9 +9,7 @@ public class Nurse : GAgent
     {
         base.Start();
 
-        goals.Add(new SubGoal("treatPatient", 1, true), 3);
-        //goals.Add(new SubGoal("hasRegistered", 1, true), 3);
-        //goals.Add(new SubGoal("isWaiting", 1, true), 3);
+        goals.Add(new SubGoal("treatPatient", 1, false), 3); //not removeable as nurse will continue to pick up patient for treatment        
     }
 
     // Update is called once per frame
