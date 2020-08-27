@@ -6,8 +6,9 @@ public class GoToWaitingRoomAction : GAction
 {
     public override bool PostPerform()
     {
-        GWorld.Instance.World.ModifyState("PatientIsWaiting", 0);
+        GWorld.Instance.World.ModifyState("PatientIsWaiting", 1);
         GWorld.Instance.AddPatient(gameObject);
+        beliefs.ModifyState("atHospital", 1);
 
         return true;
     }

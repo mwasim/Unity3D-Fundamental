@@ -18,11 +18,28 @@ public class Node
 
         states = new Dictionary<string, int>(allStates); //we need copy of allStates not reference to it that's why we've created new dictionary instead of assing it       
     }
+
+    public Node(Node theParent, float theCost, Dictionary<string, int> allStates, Dictionary<string, int> beliefStates, GAction theAction)
+    {
+        parent = theParent;
+        cost = theCost;
+        action = theAction;
+
+        states = new Dictionary<string, int>(allStates); //we need copy of allStates not reference to it that's why we've created new dictionary instead of assing it
+
+        foreach (var bs in beliefStates)
+        {
+            if (!states.ContainsKey(bs.Key))
+            {
+                states.Add(bs.Key, bs.Value);
+            }
+        }
+    }
 }
 
 public class GPlanner
 {
-    public Queue<GAction> Plan(List<GAction> actions, Dictionary<string, int> goals, WorldStates states)
+    public Queue<GAction> Plan(List<GAction> actions, Dictionary<string, int> goals, WorldStates beliefStates)
     {
         List<GAction> usableActions = new List<GAction>();
         foreach (var action in actions)
@@ -32,7 +49,7 @@ public class GPlanner
         }
 
         var leaves = new List<Node>();
-        var start = new Node(null, 0, GWorld.Instance.World.States, null);
+        var start = new Node(null, 0, GWorld.Instance.World.States, beliefStates.states, null);
 
         bool success = BuildGraph(start, leaves, usableActions, goals);
 

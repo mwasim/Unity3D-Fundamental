@@ -21,6 +21,9 @@ public abstract class GAction : MonoBehaviour
 
     public WorldStates agentBeliefs;
 
+    public GInventory inventory;
+    public WorldStates beliefs;
+
     public bool running = false;
 
     public GAction()
@@ -51,6 +54,9 @@ public abstract class GAction : MonoBehaviour
                 afterEffectsDic.Add(w.key, w.value);
             }
         }
+
+        inventory = GetComponent<GAgent>().inventory;
+        beliefs = GetComponent<GAgent>().beliefs;
     }
 
     //Helper methods
@@ -60,7 +66,7 @@ public abstract class GAction : MonoBehaviour
     {
         foreach (var pc in preConditionsDic)
         {
-            if (conditions.ContainsKey(pc.Key)) return false;
+            if (!conditions.ContainsKey(pc.Key)) return false;
         }
 
         return true;

@@ -24,6 +24,8 @@ public class GAgent : MonoBehaviour
 {
     public List<GAction> actions = new List<GAction>();
     public Dictionary<SubGoal, int> goals = new Dictionary<SubGoal, int>();
+    public GInventory inventory = new GInventory();
+    public WorldStates beliefs = new WorldStates();
 
     GPlanner planner;
     Queue<GAction> actionQueue;
@@ -68,7 +70,7 @@ public class GAgent : MonoBehaviour
 
             foreach (var g in sortedGoals)
             {
-                actionQueue = planner.Plan(actions, g.Key.subGoals, null);
+                actionQueue = planner.Plan(actions, g.Key.subGoals, beliefs);
 
                 if (actionQueue != null)
                 {

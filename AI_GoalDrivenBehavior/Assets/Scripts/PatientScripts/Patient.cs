@@ -12,6 +12,7 @@ public class Patient : GAgent
         goals.Add(new SubGoal("hasArrived", 1, true), 3);
         goals.Add(new SubGoal("hasRegistered", 1, true), 3);
         goals.Add(new SubGoal("isWaiting", 1, true), 3);
+        goals.Add(new SubGoal("isTreated", 1, true), 3);
     }
 
     // Update is called once per frame

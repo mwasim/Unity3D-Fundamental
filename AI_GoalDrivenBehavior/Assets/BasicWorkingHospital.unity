@@ -2706,7 +2706,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2737,9 +2737,11 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: PatientIsWaiting
-    value: 0
+    value: 1
+  - key: FreeCubicle
+    value: 1
   afterEffects:
-  - key: treatPatient
+  - key: pickupPatient
     value: 1
   agent: {fileID: 0}
   running: 0
@@ -2757,6 +2759,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions: []
   currentAction: {fileID: 0}
+--- !u!114 &1459684241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459684237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1901e94cd39fd4bcf92381d7c5ccf62c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Go to Cubicle
+  cost: 1
+  target: {fileID: 0}
+  targetTag: 
+  duration: 0
+  preConditions:
+  - key: pickupPatient
+    value: 0
+  afterEffects:
+  - key: treatPatient
+    value: 1
+  agent: {fileID: 0}
+  running: 0
 --- !u!1001 &1489871247
 PrefabInstance:
   m_ObjectHideFlags: 0
