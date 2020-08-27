@@ -2271,7 +2271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patientPrefab: {fileID: 7917154381971689309, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
-  numberOfPatients: 5
+  numberOfPatients: 1
 --- !u!1 &1445506242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,6 +2718,45 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1459684239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459684237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd0b90f6236047e3a9f0ba51d6c9fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Get Patient
+  cost: 1
+  target: {fileID: 0}
+  targetTag: 
+  duration: 0
+  preConditions:
+  - key: PatientIsWaiting
+    value: 0
+  afterEffects:
+  - key: treatPatient
+    value: 1
+  agent: {fileID: 0}
+  running: 0
+--- !u!114 &1459684240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459684237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6addd473b8a8448ebae29679343bf9b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  currentAction: {fileID: 0}
 --- !u!1001 &1489871247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3552,8 +3591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 121.2, y: -386.1}
-  m_SizeDelta: {x: 242.5, y: 772.1}
+  m_AnchoredPosition: {x: 307.7, y: -172.3}
+  m_SizeDelta: {x: 595.6538, y: 313.21155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1592830988
 MonoBehaviour:
@@ -3564,9 +3603,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1592830986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e82013e5ee894d90b1e90f3cbcdf92f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eba6bcdfe01a4cc1b1ca0ca8fababa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  states: {fileID: 1592830989}
 --- !u!114 &1592830989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4280,7 +4320,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7917154381971689309, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
       propertyPath: m_Name
-      value: PatientAgentPrefab
+      value: Patient
       objectReference: {fileID: 0}
     - target: {fileID: 7917461620091273929, guid: 68c25692b27d742ca97d5438e6c1b3a5, type: 3}
       propertyPath: m_LocalPosition.x
