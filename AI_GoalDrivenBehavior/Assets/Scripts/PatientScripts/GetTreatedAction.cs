@@ -1,23 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GetTreatedAction : GAction
+﻿public class GetTreatedAction : GAction
 {
     public override bool PrePerform()
     {
+        // Get a free cubicle
         target = inventory.FindItemWithTag("Cubicle");
 
-        if (target == null) return false; //if target is not found, the plan fails
+        // Check that we did indeed get a cubicle
+        if (target == null)
+            // No cubicle so return false
+            return false;
 
+        // All good
         return true;
     }
 
     public override bool PostPerform()
     {
+        // Add a new state "Treated"
         GWorld.Instance.World.ModifyState("Treated", 1);
+
+        // Add isCured to agents beliefs
         beliefs.ModifyState("isCured", 1);
-        inventory.RemoveItem(target); //once the patient is treated, remove the cubicle       
+
+        // Remove the cubicle from the list
+        inventory.RemoveItem(target);
 
         return true;
     }

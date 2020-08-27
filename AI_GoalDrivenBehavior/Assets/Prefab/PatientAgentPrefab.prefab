@@ -2740,7 +2740,7 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   targetTag: Door
-  duration: 2
+  duration: 0
   preConditions: []
   afterEffects:
   - key: hasArrived
@@ -2766,10 +2766,10 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: hasRegistered
-    value: 0
+    value: 1
   afterEffects:
   - key: isWaiting
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &53669503843253631
@@ -2788,10 +2788,10 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   targetTag: Reception
-  duration: 5
+  duration: 2
   preConditions:
   - key: hasArrived
-    value: 0
+    value: 1
   afterEffects:
   - key: hasRegistered
     value: 1
@@ -2829,10 +2829,10 @@ MonoBehaviour:
   duration: 5
   preConditions:
   - key: atHospital
-    value: 0
+    value: 1
   afterEffects:
   - key: isTreated
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!114 &3410595603180843959
@@ -2854,10 +2854,10 @@ MonoBehaviour:
   duration: 0
   preConditions:
   - key: isCured
-    value: 0
+    value: 1
   afterEffects:
   - key: isHome
-    value: 0
+    value: 1
   agent: {fileID: 0}
   running: 0
 --- !u!1 &7979709228762655478

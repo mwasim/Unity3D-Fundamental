@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteInEditMode]
 public class GAgentVisual : MonoBehaviour
@@ -11,11 +9,5 @@ public class GAgentVisual : MonoBehaviour
     void Start()
     {
         thisAgent = this.GetComponent<GAgent>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }    
 }

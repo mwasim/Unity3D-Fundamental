@@ -1,46 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GetPatientAction : GAction
 {
-    private GameObject _resource;
-
-    public override bool PostPerform()
-    {
-        GWorld.Instance.World.ModifyState("PatientIsWaiting", -1);
-
-        if (target != null)
-        {
-            target.GetComponent<GAgent>().inventory.AddItem(_resource);
-        }
-
-        return true;
-    }
+    // Resource in this case = cubicle
+    GameObject resource;
 
     public override bool PrePerform()
     {
+        // Set our target patient and remove them from the Queue
         target = GWorld.Instance.RemovePatient();
 
-        if (target == null) return false; //if target is not found, the plan fails
+        // Check that we did indeed get a patient
+        if (target == null)
+            // No patient so return false
+            return false;
 
-        _resource = GWorld.Instance.RemoveCubicle(); //get reference to the cubicle only when target is set
+        // Grab a free cubicle and remove it from the list
+        resource = GWorld.Instance.RemoveCubicle();
 
-        if(_resource != null)
+        // Test did we get one?
+        if (resource != null)
         {
-            inventory.AddItem(_resource);
+            // Yes we have a cubicle
+            inventory.AddItem(resource);
         }
         else
         {
+            // No free cubicles so release the patient
             GWorld.Instance.AddPatient(target);
             target = null;
-
             return false;
         }
 
+        //take away one cubicle being available from the world state
+        GWorld.Instance.World.ModifyState("FreeCubicle", -1);
+        return true;
+    }
 
-        GWorld.Instance.World.ModifyState("FreeCubicle", -1); //reduce the count of cubicles
-
+    public override bool PostPerform()
+    {
+        // Remove a patient from the world
+        GWorld.Instance.World.ModifyState("Waiting", -1);
+        if (target)
+        {
+            target.GetComponent<GAgent>().inventory.AddItem(resource);
+        }
         return true;
     }
 }

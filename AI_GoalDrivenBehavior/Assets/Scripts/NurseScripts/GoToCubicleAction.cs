@@ -1,23 +1,32 @@
-﻿using UnityEngine;
-
-public class GoToCubicleAction : GAction
-{    
+﻿public class GoToCubicleAction : GAction
+{
     public override bool PrePerform()
     {
+        // Get a free cubicle
         target = inventory.FindItemWithTag("Cubicle");
 
-        if (target == null) return false; //if target is not found, the plan fails
+        // Check that we did indeed get a cubicle
+        if (target == null)
+            // No cubicle so return false
+            return false;
 
+        // All good
         return true;
     }
 
     public override bool PostPerform()
     {
-        GWorld.Instance.World.ModifyState("Treated", 1);
+        // Add a new state "TreatingPatient"
+        GWorld.Instance.World.ModifyState("TreatingPatient", 1);
 
-        inventory.RemoveItem(target); //once the patient is treated, remove the cubicle
+        // Give back the cubicle
+        GWorld.Instance.AddCubicle(target);
 
-        GWorld.Instance.World.ModifyState("FreeCubicle", 1); //give back cubicle
+        // Remove the cubicle from the list
+        inventory.RemoveItem(target);
+
+        // Give the cubicle back to the world
+        GWorld.Instance.World.ModifyState("FreeCubicle", 1);
 
         return true;
     }

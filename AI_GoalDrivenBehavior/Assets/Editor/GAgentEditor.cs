@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(GAgentVisual))]
@@ -25,9 +24,9 @@ public class GAgentVisualEditor : Editor
             string pre = "";
             string eff = "";
 
-            foreach (KeyValuePair<string, int> p in a.preConditionsDic)
+            foreach (KeyValuePair<string, int> p in a.preconditions)
                 pre += p.Key + ", ";
-            foreach (KeyValuePair<string, int> e in a.afterEffectsDic)
+            foreach (KeyValuePair<string, int> e in a.effects)
                 eff += e.Key + ", ";
 
             GUILayout.Label("====  " + a.actionName + "(" + pre + ")(" + eff + ")");

@@ -2,77 +2,105 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-/*
-    Each Action has Name, and cost
- */
 public abstract class GAction : MonoBehaviour
 {
+
+    // Name of the action
     public string actionName = "Action";
+    // Cost of the action
     public float cost = 1.0f;
+    // Target where the action is going to take place
     public GameObject target;
-    public string targetTag; //find based on the tag
-    public float duration = 0; //how long
+    // Store the tag
+    public string targetTag;
+    // Duration the action should take
+    public float duration = 0.0f;
+    // An array of WorldStates of preconditions
     public WorldState[] preConditions;
+    // An array of WorldStates of afterEffects
     public WorldState[] afterEffects;
+    // The NavMEshAgent attached to the agent
     public NavMeshAgent agent;
-
-    public Dictionary<string, int> preConditionsDic; //values populated by the inspector in WorldState[] above will be put into these dictionaries
-    public Dictionary<string, int> afterEffectsDic;
-
+    // Dictionary of preconditions
+    public Dictionary<string, int> preconditions;
+    // Dictionary of effects
+    public Dictionary<string, int> effects;
+    // State of the agent
     public WorldStates agentBeliefs;
-
+    // Access our inventory
     public GInventory inventory;
     public WorldStates beliefs;
-
+    // Are we currently performing an action?
     public bool running = false;
 
+    // Constructor
     public GAction()
     {
-        //initialize dictionaries
-        preConditionsDic = new Dictionary<string, int>();
-        afterEffectsDic = new Dictionary<string, int>();
+        // Set up the preconditions and effects
+        preconditions = new Dictionary<string, int>();
+        effects = new Dictionary<string, int>();
     }
 
-    public void Awake()
+    private void Awake()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
 
-        //populate pre-conditions dictionary
+        // Get hold of the agents NavMeshAgent
+        agent = this.gameObject.GetComponent<NavMeshAgent>();
+
+        // Check if there are any preConditions in the Inspector
+        // and add to the dictionary
         if (preConditions != null)
         {
-            foreach (var w in preConditions)
+
+            foreach (WorldState w in preConditions)
             {
-                preConditionsDic.Add(w.key, w.value);
+
+                // Add each item to our Dictionary
+                preconditions.Add(w.key, w.value);
             }
         }
 
-        //populate affer-effects dictionary
+        // Check if there are any afterEffects in the Inspector
+        // and add to the dictionary
         if (afterEffects != null)
         {
-            foreach (var w in afterEffects)
+
+            foreach (WorldState w in afterEffects)
             {
-                afterEffectsDic.Add(w.key, w.value);
+
+                // Add each item to our Dictionary
+                effects.Add(w.key, w.value);
             }
         }
-
-        inventory = GetComponent<GAgent>().inventory;
-        beliefs = GetComponent<GAgent>().beliefs;
+        // Populate our inventory
+        inventory = this.GetComponent<GAgent>().inventory;
+        // Get our agents beliefs
+        beliefs = this.GetComponent<GAgent>().beliefs;
     }
 
-    //Helper methods
-    public bool IsAchievable => true;    
-
-    public bool IsAchievableGiven(Dictionary<string, int> conditions)
+    public bool IsAchievable()
     {
-        foreach (var pc in preConditionsDic)
-        {
-            if (!conditions.ContainsKey(pc.Key)) return false;
-        }
 
         return true;
     }
 
-    //abstract methods
+    //check if the action is achievable given the condition of the
+    //world and trying to match with the actions preconditions
+    public bool IsAhievableGiven(Dictionary<string, int> conditions)
+    {
+
+        foreach (KeyValuePair<string, int> p in preconditions)
+        {
+
+            if (!conditions.ContainsKey(p.Key))
+            {
+
+                return false;
+            }
+        }
+        return true;
+    }
+
     public abstract bool PrePerform();
     public abstract bool PostPerform();
 }

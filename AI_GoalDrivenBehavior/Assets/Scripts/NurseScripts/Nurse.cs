@@ -1,20 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Nurse : GAgent
 {
-    // Start is called before the first frame update
-    private void Start()
+    new void Start()
     {
-        base.Start();
 
-        goals.Add(new SubGoal("treatPatient", 1, false), 3); //not removeable as nurse will continue to pick up patient for treatment        
+        // Call base Start method
+        base.Start();
+        // Set goal so that it can't be removed so the nurse can repeat this action
+        SubGoal s1 = new SubGoal("treatPatient", 1, false);
+        goals.Add(s1, 3);
+
+        // Resting goal
+        SubGoal s2 = new SubGoal("rested", 1, false);
+        goals.Add(s2, 1);
+
+        // Call the GetTired() method for the first time
+        Invoke("GetTired", Random.Range(10.0f, 20.0f));
     }
 
-    // Update is called once per frame
-    void Update()
+    void GetTired()
     {
-        
+
+        beliefs.ModifyState("exhausted", 0);
+        //call the get tired method over and over at random times to make the nurse
+        //get tired again
+        Invoke("GetTired", Random.Range(0.0f, 20.0f));
     }
 }
