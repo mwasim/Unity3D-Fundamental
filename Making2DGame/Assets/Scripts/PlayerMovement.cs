@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController2D _controller;
+    private Animator _animator;
     private float _horizontalMove;
     private bool _jump;
     private bool _crouch;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -24,14 +26,19 @@ public class PlayerMovement : MonoBehaviour
         _horizontalMove = Input.GetAxisRaw("Horizontal") * MovementSpeed;
         //Debug.Log(horizontalInput);
 
+        _animator.SetFloat("Speed", Mathf.Abs(_horizontalMove));
+
         if (Input.GetButtonDown("Jump"))
         {
             _jump = true;
+            _animator.SetBool("IsJumping", true);
+            Debug.Log("JUMP ANIMATION SET.");
         }
 
         if (Input.GetButtonDown("Crouch"))
         {
             _crouch = true;
+            _animator.SetBool("IsCrouching", _crouch);
         }
         else if (Input.GetButtonUp("Crouch"))
         {
@@ -45,5 +52,16 @@ public class PlayerMovement : MonoBehaviour
         //Move the character
         _controller.Move(_horizontalMove * Time.fixedDeltaTime, _crouch, _jump);
         _jump = false;
+    }
+
+    public void OnLanding()
+    {
+        _animator.SetBool("IsJumping", false);
+        Debug.Log("JUMP ANIMATION REMOVED.");
+    }
+
+    public void OnCrouching(bool isCrouching)
+    {
+        _animator.SetBool("IsCrouching", isCrouching);
     }
 }
