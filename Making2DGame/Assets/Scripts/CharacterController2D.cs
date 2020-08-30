@@ -138,9 +138,13 @@ public class CharacterController2D : MonoBehaviour
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
 
+		/* Older method was by changing the scale to flip the player
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
-		transform.localScale = theScale;
+		transform.localScale = theScale;*/
+
+		//The better way to flip the player is to change the rotation
+		transform.Rotate(0, 180, 0);
 	}
 }
