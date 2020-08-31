@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/*
+    Weapon.cs (this script) uses Bullet Prefab for shooting
+    In the Unity Editor, we can use either WeaponRaycast.cs (for raycast shooting) or Weapon.cs script (shooting using bullet prefab)
+ */
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
