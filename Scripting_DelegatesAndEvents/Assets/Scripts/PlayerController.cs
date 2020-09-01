@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     //Func delegate which takes string param and returns int
     public static Func<string, int> OnGetStringLength;
 
+    private Func<string, int> OnGetStringLengthUsingLambdaExp = (name) => name.Length;
+
     public int Health { get; set; }
 
     // Start is called before the first frame update
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log(FuncCompleted());
 
             Debug.Log(GetStringLength("This is a string"));
+
+            Debug.Log("Lamada Exp. String length is: " + OnGetStringLengthUsingLambdaExp("Awesome!"));
         }
     }
 
