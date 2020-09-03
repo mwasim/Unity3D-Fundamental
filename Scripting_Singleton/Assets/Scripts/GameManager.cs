@@ -23,11 +23,22 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
+    private void Start()
+    {
+        //Spawn enemies
+        EnemySpawnManager.Instance.SpawnEnemy();
+    }
+
     private static float _timeElapsed = 0;
 
     public void DisplayGameTimeElapsed()
     {
         _timeElapsed += Time.time;
         Debug.Log($"Game time elapsed: {_timeElapsed: #0.00}");
+
+        if(_timeElapsed > 10f)
+        {
+            LevelManager.Instance.LoadLevel(); //Use LevelManager singleton to load new level
+        }
     }
 }
