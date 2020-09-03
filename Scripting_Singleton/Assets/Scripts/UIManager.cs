@@ -23,9 +23,13 @@ public class UIManager : MonoBehaviour
         _instance = this;
     }
 
+    private static int _currentScore;
+
     public void UpdateScore(int score)
     {
-        Debug.Log("Score: " + score);
+        _currentScore += score;
+
+        Debug.Log("Score: " + _currentScore);
 
         Debug.Log("UIManager is notifying the updated score to the GameManager...");
         GameManager.Instance.DisplayGameTimeElapsed();

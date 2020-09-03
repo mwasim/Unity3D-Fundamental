@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
         //The better way to access the GameManager is to use it's Singleton instance as below,
         GameManager.Instance.DisplayGameTimeElapsed();
 
+        //Use SpawnManager's singleton to spawn item(s)
+        SpawnManager.Instance.SpawnItem();
+
         StartCoroutine(UpdateScore());
     }
 
@@ -23,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 1; i <= 5; i++)
         {
-            UIManager.Instance.UpdateScore(i);
+            UIManager.Instance.UpdateScore(i * Random.Range(1, 10));
 
             yield return new WaitForSeconds(1f);
         }
