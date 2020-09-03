@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,8 +23,11 @@ public class GameManager : MonoBehaviour
         _instance = this;
     }
 
+    private static float _timeElapsed = 0;
+
     public void DisplayGameTimeElapsed()
     {
-        Debug.Log("Game time elapsed: 45 seconds");
+        _timeElapsed += Time.time;
+        Debug.Log($"Game time elapsed: {_timeElapsed: #0.00}");
     }
 }

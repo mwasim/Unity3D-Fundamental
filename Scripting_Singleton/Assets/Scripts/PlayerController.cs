@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,11 +15,17 @@ public class PlayerController : MonoBehaviour
 
         //The better way to access the GameManager is to use it's Singleton instance as below,
         GameManager.Instance.DisplayGameTimeElapsed();
+
+        StartCoroutine(UpdateScore());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator UpdateScore()
     {
-        
-    }
+        for (int i = 1; i <= 5; i++)
+        {
+            UIManager.Instance.UpdateScore(i);
+
+            yield return new WaitForSeconds(1f);
+        }
+    }    
 }
