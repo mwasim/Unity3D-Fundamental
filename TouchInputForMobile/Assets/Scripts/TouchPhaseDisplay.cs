@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TouchPhaseDisplay : MonoBehaviour
@@ -10,13 +8,7 @@ public class TouchPhaseDisplay : MonoBehaviour
 
     private Touch theTouch;
     private float _timeTouchEnded;
-    private float _displayTime = 0.5f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    private readonly float _displayTime = 0.5f;
 
     // Update is called once per frame
     void Update()
@@ -35,6 +27,5 @@ public class TouchPhaseDisplay : MonoBehaviour
         {
             _phaseDisplayText.text = string.Empty;
         }
-
     }
 }
