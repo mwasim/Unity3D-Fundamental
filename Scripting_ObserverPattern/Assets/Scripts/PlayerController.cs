@@ -64,13 +64,13 @@ public class PlayerController : MonoBehaviour
 
     #region Projectile Management
 
-    public void EnableProjectile()
+    private void EnableProjectile()
     {
         projectileEnabled = true;
         availableBullet.SetActive(projectileEnabled);
     }
 
-    public void DisableProjectile()
+    private void DisableProjectile()
     {
         projectileEnabled = false;
         availableBullet.SetActive(projectileEnabled);
@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour
         projectile.isPlayers = true;
         projectile.projectileSpeed = 4;
         projectile.projectileDirection = Vector2.up;
+
+        projectile.ProjectileOutBounds += EnableProjectile; //subscribe
 
         DisableProjectile();
     }

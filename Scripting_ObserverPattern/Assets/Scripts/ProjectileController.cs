@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+public delegate void OutOfBoundsHandler();
+
 public class ProjectileController : MonoBehaviour
 {
     #region Field Declarations
@@ -9,6 +11,8 @@ public class ProjectileController : MonoBehaviour
     public bool isPlayers;
 
     #endregion
+
+    public event OutOfBoundsHandler ProjectileOutBounds;
 
     #region Movement
 
@@ -24,10 +28,18 @@ public class ProjectileController : MonoBehaviour
 
         if (ScreenBounds.OutOfBounds(transform.position))
         {
-            Destroy(gameObject);
+            if (ProjectileOutBounds == null)
+            {
+                Debug.Log("ProjectileOutBounds is NULL");
+            }
 
-            if (isPlayers)
-                FindObjectOfType<PlayerController>().EnableProjectile();
+            ProjectileOutBounds?.Invoke(); //if event is subscribed, invoke it (avoid coupling between objects)
+
+            //Instead of using the below code, now we're using events to communicate between objects
+            //if (isPlayers)
+            //    FindObjectOfType<PlayerController>().EnableProjectile();
+
+            Destroy(gameObject);            
         }
     }
 
