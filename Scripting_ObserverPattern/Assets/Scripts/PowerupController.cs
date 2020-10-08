@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PowerupController :MonoBehaviour
+public class PowerupController : MonoBehaviour
 {
     #region Field Declarations
 
@@ -15,7 +15,7 @@ public class PowerupController :MonoBehaviour
 
     void Update()
     {
-       Move();
+        Move();
     }
 
     private void Move()
@@ -34,9 +34,13 @@ public class PowerupController :MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       //TODO: Apply Power ups
-       
-       Destroy(gameObject);
+        if (powerType == PowerType.Shield)
+        {
+            var playerShip = collision.gameObject.GetComponent<PlayerController>();
+            playerShip?.EnableShield();
+        }
+
+        Destroy(gameObject);
     }
 
     #endregion

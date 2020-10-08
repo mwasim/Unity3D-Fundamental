@@ -231,7 +231,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5235,13 +5234,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8468836009529650403, guid: 729a3fa1cc0894c73bff51d5094fcc94, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 56.30005
+      objectReference: {fileID: 0}
+    - target: {fileID: 8468836009529650403, guid: 729a3fa1cc0894c73bff51d5094fcc94, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -54.700012
+      objectReference: {fileID: 0}
     - target: {fileID: 9085529995821107367, guid: 729a3fa1cc0894c73bff51d5094fcc94, type: 3}
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
     - target: {fileID: 9085529995821107367, guid: 729a3fa1cc0894c73bff51d5094fcc94, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 729a3fa1cc0894c73bff51d5094fcc94, type: 3}
