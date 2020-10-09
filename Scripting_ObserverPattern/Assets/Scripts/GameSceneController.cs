@@ -37,7 +37,37 @@ public class GameSceneController : MonoBehaviour
 
     #endregion
 
+    #region Subject Implementation
+
+    private List<IEndGameObserver> _endGameObservers;
+
+    public void AddObserver(IEndGameObserver observer)
+    {
+        _endGameObservers.Add(observer);
+    }
+
+    public void RemoveObserver(IEndGameObserver observer)
+    {
+        _endGameObservers.Remove(observer);
+    }
+
+    private void NotifyObservers()
+    {
+        foreach (var observer in _endGameObservers)
+        {
+            observer.Notify();
+        }
+    }
+
+    #endregion
+
     #region Startup
+
+    private void Awake()
+    {
+        //initialize observers to ensure the observers list is initialized before any start methods
+        _endGameObservers = new List<IEndGameObserver>();
+    }
 
     void Start()
     {
@@ -102,7 +132,13 @@ public class GameSceneController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload the level if all lives are lost
+            //Spawning of enemies should also stop, and as spawning is done using coroutines, we can stop all coroutines
+            StopAllCoroutines();
+
+            //Notify observers to show game over message
+            NotifyObservers();
+
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload the level if all lives are lost
         }
     }
 

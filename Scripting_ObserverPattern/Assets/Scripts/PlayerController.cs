@@ -80,13 +80,13 @@ public class PlayerController : MonoBehaviour
     private void EnableProjectile()
     {
         projectileEnabled = true;
-        availableBullet.SetActive(projectileEnabled);
+        availableBullet?.SetActive(projectileEnabled);
     }
 
     private void DisableProjectile()
     {
         projectileEnabled = false;
-        availableBullet.SetActive(projectileEnabled);
+        availableBullet?.SetActive(projectileEnabled);
     }
 
     private void FireProjectile()
