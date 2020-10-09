@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
 {
-	#region Field Declarations
+    #region Field Declarations
 
-	[Header("UI Components")]
+    [Header("UI Components")]
     [Space]
-	public Text scoreText;
+    public Text scoreText;
     public StatusText statusText;
     public Button restartButton;
 
@@ -16,6 +16,9 @@ public class HUDController : MonoBehaviour
     [Space]
     private Image[] shipImages;
 
+    //reference the game scene controller
+    private GameSceneController _gameSceneController;
+
     #endregion
 
     #region Startup
@@ -23,6 +26,14 @@ public class HUDController : MonoBehaviour
     private void Awake()
     {
         statusText.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        _gameSceneController = FindObjectOfType<GameSceneController>();
+
+        _gameSceneController.OnEnemyDestroyedUpdateScore += UpdateScore;
+        _gameSceneController.LifeLost += HideShip;
     }
 
     #endregion

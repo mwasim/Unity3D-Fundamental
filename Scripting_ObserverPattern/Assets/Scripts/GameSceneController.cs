@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSceneController : MonoBehaviour
 {
+    public event EnemyDestroyedHandler OnEnemyDestroyedUpdateScore;
+    public event Action<int> LifeLost;
+
     #region Field Declarations
 
     [Header("Enemy & Power Prefabs")]
@@ -11,13 +16,14 @@ public class GameSceneController : MonoBehaviour
     [SerializeField] private EnemyController enemyPrefab;
     [SerializeField] private PlayerController playerShip;
     [SerializeField] private PowerupController[] powerUpPrefabs;
-	
-	[Header("Level Definitions")]
+
+    [Header("Level Definitions")]
     [Space]
     public List<LevelDefinition> levels;
     [HideInInspector] public LevelDefinition currentLevel;
 
-    [Header("Player ship settings")][Space]
+    [Header("Player ship settings")]
+    [Space]
     [Range(3, 8)]
     public float playerSpeed = 5;
     [Range(1, 10)]
@@ -43,8 +49,8 @@ public class GameSceneController : MonoBehaviour
     #region Level Management
 
     private void StartLevel(int levelIndex)
-	{
-     	currentLevel = levels[levelIndex];
+    {
+        currentLevel = levels[levelIndex];
 
         StartCoroutine(SpawnShip(false));
         StartCoroutine(SpawnEnemies());
@@ -72,14 +78,32 @@ public class GameSceneController : MonoBehaviour
 
     private IEnumerator SpawnShip(bool delayed)
     {
-        if(delayed)
+        if (delayed)
             yield return shipSpawnDelay;
 
         PlayerController ship = Instantiate(playerShip, new Vector2(0, -4.67f), Quaternion.identity);
         ship.speed = playerSpeed;
         ship.shieldDuration = shieldDuration;
 
+        ship.HitByEnemy += Ship_HitByEnemy;
+
         yield return null;
+    }
+
+    private void Ship_HitByEnemy()
+    {
+        lives--;
+
+        LifeLost?.Invoke(lives);
+
+        if (lives > 0)
+        {
+            StartCoroutine(SpawnShip(true));
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload the level if all lives are lost
+        }
     }
 
     private IEnumerator SpawnEnemies()
@@ -97,11 +121,20 @@ public class GameSceneController : MonoBehaviour
             enemy.speed = currentLevel.enemySpeed;
             enemy.shotdelayTime = currentLevel.enemyShotDelay;
             enemy.angerdelayTime = currentLevel.enemyAngerDelay;
- 
+
+            enemy.OnEnemyDestroyed += Enemy_OnEnemyDestroyed; //subscribe to the event
+
             yield return wait;
         }
     }
-    
+
+    private void Enemy_OnEnemyDestroyed(int pointValue)
+    {
+        totalPoints += pointValue; //update the total points
+
+        OnEnemyDestroyedUpdateScore?.Invoke(totalPoints);
+    }
+
     private IEnumerator SpawnPowerUp()
     {
         while (true)
@@ -109,7 +142,7 @@ public class GameSceneController : MonoBehaviour
             int index = UnityEngine.Random.Range(0, powerUpPrefabs.Length);
             Vector2 spawnPosition = ScreenBounds.RandomTopPosition();
             Instantiate(powerUpPrefabs[index], spawnPosition, Quaternion.identity);
-            yield return new WaitForSeconds(UnityEngine.Random.Range(currentLevel.powerUpMinimumWait,currentLevel.powerUpMaximumWait));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(currentLevel.powerUpMinimumWait, currentLevel.powerUpMaximumWait));
         }
     }
 

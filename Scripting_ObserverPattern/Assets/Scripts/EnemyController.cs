@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+public delegate void EnemyDestroyedHandler(int pointValue);
+
 public class EnemyController : MonoBehaviour
 {
     #region Field Declarations
@@ -19,11 +21,13 @@ public class EnemyController : MonoBehaviour
     private WaitForSeconds shotDelay;
     private WaitForSeconds angerDelay;
     private float shotSpeedxN;
-    
+
     private Vector2 currentTarget;
     private SpriteRenderer spriteRenderer;
 
     #endregion
+
+    public event EnemyDestroyedHandler OnEnemyDestroyed;
 
     #region Startup
 
@@ -64,15 +68,21 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(collision.gameObject);
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.CompareTag("EnemyBullet")) return; //when enemy fires a projectile, this shouldn't destroy the enemy itself
 
-        //FindObjectOfType<PlayerController>().EnableProjectile(); //TODO: Subscribe to event
-        FindObjectOfType<HUDController>().UpdateScore(pointValue);
-        
+        Destroy(collision.gameObject); //destroy projectile (collision game object)
+
+        //The below code is commented because, the points are updated via the GameSceneController and HUDController using events
+        //FindObjectOfType<PlayerController>().EnableProjectile();    
+        //FindObjectOfType<HUDController>().UpdateScore(pointValue);
+
+        OnEnemyDestroyed?.Invoke(pointValue); //if event subscribed raise it
+
         GameObject xPlosion = Instantiate(explosion, transform.position, Quaternion.identity);
         xPlosion.transform.localScale = new Vector2(2, 2);
 
-        Destroy(gameObject);
+        Destroy(gameObject); //destroy the enemy itself
     }
 
     #endregion
