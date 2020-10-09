@@ -8,7 +8,7 @@ public class ProjectileController : MonoBehaviour
 
     public Vector2 projectileDirection;
     public float projectileSpeed;
-    public bool isPlayers;
+    public bool isPlayers;    
 
     #endregion
 

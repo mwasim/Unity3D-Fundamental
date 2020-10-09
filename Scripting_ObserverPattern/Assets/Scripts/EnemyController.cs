@@ -68,7 +68,6 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("EnemyBullet")) return; //when enemy fires a projectile, this shouldn't destroy the enemy itself
 
         Destroy(collision.gameObject); //destroy projectile (collision game object)

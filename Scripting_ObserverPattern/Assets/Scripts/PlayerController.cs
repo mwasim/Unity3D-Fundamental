@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private WaitForSeconds shieldTimeOut;
 
     [SerializeField] private GameSceneController _gameSceneController;
+    private ProjectileController _lastProjectile;
 
     #endregion
 
@@ -102,6 +103,8 @@ public class PlayerController : MonoBehaviour
         projectile.projectileSpeed = 4;
         projectile.projectileDirection = Vector2.up;
 
+        _lastProjectile = projectile; //store reference to the last projectile
+
         projectile.ProjectileOutBounds += EnableProjectile; //subscribe
 
         DisableProjectile();
@@ -116,7 +119,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.GetComponent<ProjectileController>())
         {
             TakeHit();
-            Debug.Log("Take Hit");
         }
     }
 
@@ -125,9 +127,15 @@ public class PlayerController : MonoBehaviour
         GameObject xp = Instantiate(expolsion, transform.position, Quaternion.identity);
         xp.transform.localScale = new Vector2(2, 2);
 
-        Destroy(gameObject);
-
         HitByEnemy?.Invoke();
+
+        //unsubscribe the events before the player is destroyed
+        if (_lastProjectile != null)
+            _lastProjectile.ProjectileOutBounds -= EnableProjectile;
+
+        _gameSceneController.OnEnemyDestroyedUpdateScore -= OnEnemyDestroyed;
+
+        Destroy(gameObject);
     }
 
     #endregion
