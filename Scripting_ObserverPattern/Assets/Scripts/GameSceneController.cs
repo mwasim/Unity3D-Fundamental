@@ -152,6 +152,10 @@ public class GameSceneController : MonoBehaviour
             Vector2 spawnPosition = ScreenBounds.RandomTopPosition();
 
             EnemyController enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+            //add observer to be notified on game over
+            AddObserver(enemy);
+
             enemy.gameObject.layer = LayerMask.NameToLayer("Enemy");
             enemy.shotSpeed = currentLevel.enemyShotSpeed;
             enemy.speed = currentLevel.enemySpeed;
@@ -177,7 +181,11 @@ public class GameSceneController : MonoBehaviour
         {
             int index = UnityEngine.Random.Range(0, powerUpPrefabs.Length);
             Vector2 spawnPosition = ScreenBounds.RandomTopPosition();
-            Instantiate(powerUpPrefabs[index], spawnPosition, Quaternion.identity);
+            var powerUp = Instantiate(powerUpPrefabs[index], spawnPosition, Quaternion.identity);
+
+            //add observer to be notified on game over
+            AddObserver(powerUp);
+
             yield return new WaitForSeconds(UnityEngine.Random.Range(currentLevel.powerUpMinimumWait, currentLevel.powerUpMaximumWait));
         }
     }

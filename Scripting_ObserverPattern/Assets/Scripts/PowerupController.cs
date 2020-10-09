@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PowerupController : MonoBehaviour
+public class PowerupController : MonoBehaviour, IEndGameObserver
 {
     #region Field Declarations
 
@@ -24,7 +24,7 @@ public class PowerupController : MonoBehaviour
 
         if (ScreenBounds.OutOfBounds(transform.position))
         {
-            Destroy(gameObject);
+            RemoveAndDestroy();
         }
     }
 
@@ -40,10 +40,26 @@ public class PowerupController : MonoBehaviour
             playerShip?.EnableShield();
         }
 
-        Destroy(gameObject);
+        RemoveAndDestroy();
     }
 
     #endregion
+
+    public void Notify()
+    {
+        //destroy the power up / removes the instance of the Power Up
+        RemoveAndDestroy();
+    }
+
+    //on destroying the power up, the observer should also be removed to avoid MissingReferenceException
+    private void RemoveAndDestroy()
+    {
+        //remove observer
+        var gameSceneController = FindObjectOfType<GameSceneController>();
+        gameSceneController.RemoveObserver(this);
+
+        Destroy(gameObject); //after removing observer destroy the game object
+    }
 }
 
 public enum PowerType

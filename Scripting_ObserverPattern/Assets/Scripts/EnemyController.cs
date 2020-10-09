@@ -3,7 +3,7 @@ using UnityEngine;
 
 public delegate void EnemyDestroyedHandler(int pointValue);
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IEndGameObserver
 {
     #region Field Declarations
 
@@ -82,7 +82,7 @@ public class EnemyController : MonoBehaviour
         GameObject xPlosion = Instantiate(explosion, transform.position, Quaternion.identity);
         xPlosion.transform.localScale = new Vector2(2, 2);
 
-        Destroy(gameObject); //destroy the enemy itself
+        RemoveAndDestroy(); //destroy the enemy itself
     }
 
     #endregion
@@ -128,5 +128,21 @@ public class EnemyController : MonoBehaviour
         shotSpeed = shotSpeedxN;
     }
 
+    public void Notify()
+    {
+        //remove instance of the enemy from the scene
+        RemoveAndDestroy();
+    }
+
     #endregion
+
+    //on destroying the power up, the observer should also be removed to avoid MissingReferenceException
+    private void RemoveAndDestroy()
+    {
+        //remove observer
+        var gameSceneController = FindObjectOfType<GameSceneController>();
+        gameSceneController.RemoveObserver(this);
+
+        Destroy(gameObject); //after removing observer destroy the game object
+    }
 }
