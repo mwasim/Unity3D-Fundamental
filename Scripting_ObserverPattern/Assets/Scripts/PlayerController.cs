@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private WaitForSeconds shieldTimeOut;
 
     [SerializeField] private GameSceneController _gameSceneController;
-    private ProjectileController _lastProjectile;
+    //private ProjectileController _lastProjectile;
 
     #endregion
 
@@ -32,7 +32,16 @@ public class PlayerController : MonoBehaviour
         _gameSceneController = FindObjectOfType<GameSceneController>();
         _gameSceneController.OnEnemyDestroyedUpdateScore += OnEnemyDestroyed; //subscribe to the event
 
-        //EnableShield();
+        //now we're using the Publisher/subscriber pattenr (while using the EventBroker), let's use that
+        EventBroker.ProjectileOutOfBounds += EnableProjectile;
+
+        EnableShield();
+    }
+
+    private void OnDisable() //OnDisable is called just before the gameobject is destroyed, so it's good place to unsubscribe events from event broker
+    {
+        //now we're using the Publisher/subscriber pattenr (while using the EventBroker), let's use that
+        EventBroker.ProjectileOutOfBounds -= EnableProjectile;
     }
 
     private void OnEnemyDestroyed(int pointValue)
@@ -103,9 +112,13 @@ public class PlayerController : MonoBehaviour
         projectile.projectileSpeed = 4;
         projectile.projectileDirection = Vector2.up;
 
-        _lastProjectile = projectile; //store reference to the last projectile
+        //_lastProjectile = projectile; //store reference to the last projectile //with use of Publisher/Subscriber pattern below, there's no need to store last projectile reference as it causes other issues
 
-        projectile.ProjectileOutBounds += EnableProjectile; //subscribe
+        //projectile.ProjectileOutBounds += EnableProjectile; //subscribe ////IT'S DONE IN THE START METHOD NOW
+
+        //IT'S DONE IN THE START METHOD NOW
+        //now we're using the Publisher/subscriber pattenr (while using the EventBroker), let's use that
+        //EventBroker.ProjectileOutOfBounds += EnableProjectile; 
 
         DisableProjectile();
     }
@@ -129,9 +142,13 @@ public class PlayerController : MonoBehaviour
 
         HitByEnemy?.Invoke();
 
-        //unsubscribe the events before the player is destroyed
-        if (_lastProjectile != null)
-            _lastProjectile.ProjectileOutBounds -= EnableProjectile;
+        ////unsubscribe the events before the player is destroyed
+        //if (_lastProjectile != null)
+        //    _lastProjectile.ProjectileOutBounds -= EnableProjectile;
+
+        //Events on EventBroker are unsubscribed in the OnDisable() method above
+        //now we're using the Publisher/subscriber pattenr (while using the EventBroker), let's use that
+        //EventBroker.ProjectileOutOfBounds -= EnableProjectile;
 
         _gameSceneController.OnEnemyDestroyedUpdateScore -= OnEnemyDestroyed;
 

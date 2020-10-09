@@ -10,9 +10,7 @@ public class ProjectileController : MonoBehaviour
     public float projectileSpeed;
     public bool isPlayers;    
 
-    #endregion
-
-    public event OutOfBoundsHandler ProjectileOutBounds;
+    #endregion    
 
     #region Movement
 
@@ -27,8 +25,11 @@ public class ProjectileController : MonoBehaviour
         transform.Translate(projectileDirection * Time.deltaTime * projectileSpeed, Space.World);
 
         if (ScreenBounds.OutOfBounds(transform.position))
-        {           
-            ProjectileOutBounds?.Invoke(); //if event is subscribed, invoke it (avoid coupling between objects)
+        {
+            //ProjectileOutBounds?.Invoke(); //if event is subscribed, invoke it (avoid coupling between objects)
+
+            //now we're using the Publisher/subscriber pattenr (while using the EventBroker), let's use that
+            EventBroker.CallProjectileOutOfBounds();
 
             //Instead of using the below code, now we're using events to communicate between objects
             //if (isPlayers)
