@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18755732449384f879d90ef55186587b, type: 3}
-  m_Name: Level01
+  m_Name: Test
   m_EditorClassIdentifier: 
-  levelName: Level 01
-  numberOfEnemies: 2
-  hasPowerUps: 1
-  enemySpawnDelay: 2
-  enemyAngerDelay: 10
-  enemyShotDelay: 1.5
-  enemyShotSpeed: 5
-  enemySpeed: 2
-  powerUpMinimumWait: 3
-  powerUpMaximumWait: 10
+  levelName: 
+  numberOfEnemies: 0
+  hasPowerUps: 0
+  enemySpawnDelay: 0
+  enemyAngerDelay: 0
+  enemyShotDelay: 0
+  enemyShotSpeed: 0
+  enemySpeed: 0
+  powerUpMinimumWait: 0
+  powerUpMaximumWait: 0
