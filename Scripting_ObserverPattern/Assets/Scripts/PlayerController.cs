@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,14 +17,26 @@ public class PlayerController : MonoBehaviour
     private bool projectileEnabled = true;
     private WaitForSeconds shieldTimeOut;
 
+    [SerializeField] private GameSceneController _gameSceneController;
+
     #endregion
+
+    public event Action HitByEnemy;
 
     #region Startup
 
     private void Start()
     {
         shieldTimeOut = new WaitForSeconds(shieldDuration);
+        _gameSceneController = FindObjectOfType<GameSceneController>();
+        _gameSceneController.OnEnemyDestroyedUpdateScore += OnEnemyDestroyed; //subscribe to the event
+
         //EnableShield();
+    }
+
+    private void OnEnemyDestroyed(int pointValue)
+    {
+        EnableProjectile();
     }
 
     #endregion
@@ -98,14 +111,14 @@ public class PlayerController : MonoBehaviour
 
     #region Damage
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.GetComponent<ProjectileController>())
-    //    {
-    //        TakeHit();
-    //        Debug.Log("Take Hit");
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<ProjectileController>())
+        {
+            TakeHit();
+            Debug.Log("Take Hit");
+        }
+    }
 
     private void TakeHit()
     {
@@ -113,6 +126,8 @@ public class PlayerController : MonoBehaviour
         xp.transform.localScale = new Vector2(2, 2);
 
         Destroy(gameObject);
+
+        HitByEnemy?.Invoke();
     }
 
     #endregion

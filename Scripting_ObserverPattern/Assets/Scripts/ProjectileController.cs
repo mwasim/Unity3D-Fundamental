@@ -27,12 +27,7 @@ public class ProjectileController : MonoBehaviour
         transform.Translate(projectileDirection * Time.deltaTime * projectileSpeed, Space.World);
 
         if (ScreenBounds.OutOfBounds(transform.position))
-        {
-            if (ProjectileOutBounds == null)
-            {
-                Debug.Log("ProjectileOutBounds is NULL");
-            }
-
+        {           
             ProjectileOutBounds?.Invoke(); //if event is subscribed, invoke it (avoid coupling between objects)
 
             //Instead of using the below code, now we're using events to communicate between objects
