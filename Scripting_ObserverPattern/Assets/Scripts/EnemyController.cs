@@ -131,7 +131,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     public void Notify()
     {
         //remove instance of the enemy from the scene
-        RemoveAndDestroy();
+        Destroy(gameObject);
     }
 
     #endregion

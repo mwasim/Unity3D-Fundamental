@@ -48,7 +48,7 @@ public class PowerupController : MonoBehaviour, IEndGameObserver
     public void Notify()
     {
         //destroy the power up / removes the instance of the Power Up
-        RemoveAndDestroy();
+        Destroy(gameObject);
     }
 
     //on destroying the power up, the observer should also be removed to avoid MissingReferenceException
