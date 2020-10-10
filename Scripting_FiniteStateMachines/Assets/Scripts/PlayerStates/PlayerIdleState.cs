@@ -24,16 +24,36 @@ public class PlayerIdleState : PlayerBaseState
 {
     public override void EnterState(PlayerController_FSM player)
     {
-        throw new System.NotImplementedException();
+        player.SetExpression(player.idleSprite);
     }
 
     public override void OnCollisionEnter(PlayerController_FSM player)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void Update(PlayerController_FSM player)
     {
-        throw new System.NotImplementedException();
-    }    
+        if (Input.GetButtonDown("Jump"))
+        {
+            player.Rigidbody.AddForce(Vector3.up * player.jumpForce);
+
+            player.TransitionToState(player.JumpingState);
+        }
+
+        if (Input.GetButtonDown("Duck"))
+        {            
+            player.TransitionToState(player.DuckingState);
+        }
+
+        if (Input.GetButtonDown("SwapWeapon"))
+        {
+            //if (!_isJumping && !_isDucking && !_isSpinning) //if player is not in any of these commented states, the player must be in the Idle state that's why this check is added here
+
+            var usingWeapon01 = player.weapon01.gameObject.activeInHierarchy;
+
+            player.weapon01.gameObject.SetActive(usingWeapon01 == false);
+            player.weapon02.gameObject.SetActive(usingWeapon01);
+        }
+    }
 }

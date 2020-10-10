@@ -37,12 +37,15 @@ public class PlayerController_FSM : MonoBehaviour //This class is Context for FS
     private SpriteRenderer face;
     private Rigidbody rbody;
 
+    public Rigidbody Rigidbody => rbody;
+
     #endregion
 
     /*
         FSM - holds reference to the instance of the player's state
      */
     private PlayerBaseState _currentState;
+    public PlayerBaseState CurrentState => _currentState; //Expose the Current State as public (read only)
 
     /*
         FSM - we need instances of the states to transition to
@@ -50,7 +53,6 @@ public class PlayerController_FSM : MonoBehaviour //This class is Context for FS
     public readonly PlayerIdleState IdleState = new PlayerIdleState(); //initial state of the FSM
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerDuckingState DuckingState = new PlayerDuckingState();
-    //public readonly PlayerSpinningState spinningState = new PlayerSpinningState(); //we'll come back to it later on
 
     private void Awake()
     {
@@ -73,7 +75,7 @@ public class PlayerController_FSM : MonoBehaviour //This class is Context for FS
         /*
             FSM - UPDATE state
          */
-        _currentState.Update(this); 
+        _currentState.Update(this);
     }
 
     private void OnCollisionEnter(Collision collision)

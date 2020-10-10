@@ -22,18 +22,35 @@ using UnityEngine;
  */
 public class PlayerSpinningState : PlayerBaseState
 {
+    private float _rotation = 0f; //Player state maintains it's own state (by creating a new instance of this state each time, we don't need to reset state variables)
+
     public override void EnterState(PlayerController_FSM player)
     {
-        throw new System.NotImplementedException();
+        player.SetExpression(player.spinningSprite);
     }
 
     public override void OnCollisionEnter(PlayerController_FSM player)
     {
-        throw new System.NotImplementedException();
+        player.transform.rotation = Quaternion.identity;
+
+        player.TransitionToState(player.IdleState);
     }
 
     public override void Update(PlayerController_FSM player)
     {
-        throw new System.NotImplementedException();
+        var amountToRotate = 900 * Time.deltaTime;
+        _rotation += amountToRotate;
+
+        if (_rotation < 360)
+        {
+            player.transform.Rotate(Vector3.up, amountToRotate);
+        }
+        else
+        {
+            player.transform.rotation = Quaternion.identity;
+
+            //transition to jumping state
+            player.TransitionToState(player.JumpingState);
+        }
     }
 }
