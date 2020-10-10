@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameSceneController _gameSceneController;
     //private ProjectileController _lastProjectile;
+    private VariableJoystick _joyStick;
 
     #endregion
 
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         shieldTimeOut = new WaitForSeconds(shieldDuration);
         _gameSceneController = FindObjectOfType<GameSceneController>();
+        _joyStick = FindObjectOfType<VariableJoystick>();
         _gameSceneController.OnEnemyDestroyedUpdateScore += OnEnemyDestroyed; //subscribe to the event
 
         //now we're using the Publisher/subscriber pattenr (while using the EventBroker), let's use that
@@ -58,7 +60,19 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.touchCount > 0)
+        {
+            var theTouch = Input.GetTouch(0);
+
+            if (theTouch.phase == TouchPhase.Ended || theTouch.phase == TouchPhase.Moved)
+            {
+                if (projectileEnabled)
+                {
+                    FireProjectile();
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             if (projectileEnabled)
             {
@@ -70,6 +84,9 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
+
+        if (Mathf.Approximately(horizontalMovement, 0f))
+            horizontalMovement = _joyStick.Horizontal;
 
         if (Mathf.Abs(horizontalMovement) > Mathf.Epsilon)
         {

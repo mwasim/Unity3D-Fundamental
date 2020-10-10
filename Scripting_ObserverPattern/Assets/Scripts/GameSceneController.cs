@@ -138,8 +138,14 @@ public class GameSceneController : MonoBehaviour
             //Notify observers to show game over message
             NotifyObservers();
 
+            Invoke(nameof(RestartGame), 5f); //after X seconds, restart the game when game is over
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload the level if all lives are lost
         }
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload the level if all lives are lost
     }
 
     private IEnumerator SpawnEnemies()
