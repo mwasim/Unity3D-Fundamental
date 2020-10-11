@@ -29,7 +29,7 @@ public class NPCController : MonoBehaviour
         //Petrol on checking waypoints to make it more robust
         if (waypoints.Length > 0)
         {
-            InvokeRepeating(nameof(Patrol), 0, patrolTime); //repeat the Tick method every half second
+            InvokeRepeating(nameof(Patrol), Random.Range(0, patrolTime), patrolTime); //repeat the Tick method every half second
         }
     }
 
@@ -57,5 +57,12 @@ public class NPCController : MonoBehaviour
             agent.destination = player.position;
             agent.speed = agentSpeed; //increase the speed to max speed while in pursuit
         }
+    }
+
+    //To visually see the aggro range
+    private void OnDrawGizmos() //executes when an object is rendered in the scene view
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, aggroRange); //This will draw a wire sphere at the location of the NPC whose radius is based on the aggro range
     }
 }
