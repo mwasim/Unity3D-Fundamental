@@ -20,8 +20,27 @@ public class NPCController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         if (agent != null) { agentSpeed = agent.speed; }
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        index = Random.Range(0, waypoints.Length);
+        index = Random.Range(0, waypoints.Length); //use randome waypoint, index is changed every (patrolTime) seconds
+
+        //Timers
+        InvokeRepeating(nameof(Tick), 0, 0.5f); //repeat the Tick method every half second
+
+
+        //Petrol on checking waypoints to make it more robust
+        if(waypoints.Length > 0)
+        {
+            InvokeRepeating(nameof(Patrol), 0, patrolTime); //repeat the Tick method every half second
+        }
     }
 
+    private void Patrol() //manages the waypoint index
+    {
+        index = index == waypoints.Length - 1 ? 0 : index + 1; //reached to the end of the array or not
+    }
 
+    private void Tick()
+    {
+        //assuming the default behavior of NPC is patroling
+        agent.destination = waypoints[index].position;
+    }
 }
