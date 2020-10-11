@@ -32,8 +32,20 @@ public class MouseManager : MonoBehaviour
             //detect the mouse click
             if (Input.GetMouseButtonDown(0))
             {
-                //invoke event and pass hit point
-                OnClickEnvironment?.Invoke(hit.point);
+                if (door) //if it's door way
+                {
+                    //we need transform to use door way position
+                    var doorway = hit.collider.gameObject.transform;
+
+                    //add forward vector and 10 units to it
+                    //It starts with the transform position and adding a vector based on the doorway forward axis, in this way chracter goes right through it (without standing within the doorway)
+                    OnClickEnvironment?.Invoke(doorway.position + doorway.forward * 10);
+                }
+                else //normal behavior when not clicked on the doorway
+                {
+                    //invoke event and pass hit point
+                    OnClickEnvironment?.Invoke(hit.point);
+                }                
             }
         }
         else
