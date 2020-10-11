@@ -18,7 +18,7 @@ public class NPCController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        if (agent != null) { agentSpeed = agent.speed; }
+        if (agent != null) { agentSpeed = agent.speed; } //initialize the agentSpeed set on the agent to use it later
         player = GameObject.FindGameObjectWithTag("Player").transform;
         index = Random.Range(0, waypoints.Length); //use randome waypoint, index is changed every (patrolTime) seconds
 
@@ -27,7 +27,7 @@ public class NPCController : MonoBehaviour
 
 
         //Petrol on checking waypoints to make it more robust
-        if(waypoints.Length > 0)
+        if (waypoints.Length > 0)
         {
             InvokeRepeating(nameof(Patrol), 0, patrolTime); //repeat the Tick method every half second
         }
@@ -42,5 +42,20 @@ public class NPCController : MonoBehaviour
     {
         //assuming the default behavior of NPC is patroling
         agent.destination = waypoints[index].position;
+    }
+
+    private void Update()
+    {
+        animator.SetFloat("Speed", agent.velocity.magnitude); //magintude of the agent's velocity which is the speed value
+
+        //for simplicity let's assume the speed setup on the NavMeshAgent is the max speed, and let use the half of it as the walk speed
+        agent.speed = agentSpeed / 2;
+
+        //check the distance to the player
+        if (player != null && Vector3.Distance(transform.position, player.position) < aggroRange) //player is within range to be pusued?
+        {
+            agent.destination = player.position;
+            agent.speed = agentSpeed; //increase the speed to max speed while in pursuit
+        }
     }
 }
