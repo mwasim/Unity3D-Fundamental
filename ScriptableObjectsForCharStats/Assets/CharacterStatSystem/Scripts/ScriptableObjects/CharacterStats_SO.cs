@@ -115,18 +115,38 @@ public class CharacterStats_SO : ScriptableObject
     }
 
     //EQUIP WEAPONS
-    public void EquipWeapon(ItemPickUp weaponPickUp, CharacterInventory characterInventory, GameObject go)
+    public void EquipWeapon(ItemPickUp weaponPickUp, CharacterInventory characterInventory, GameObject weaponSlot)
     {
         Weapon = weaponPickUp;
 
         currentDamage = baseDamage + weaponPickUp.itemDefinition.itemAmount;
     }
 
+    //UN-EQUIP WEAPON
+    public bool UnEquipWeapon(ItemPickUp weaponPickup, CharacterInventory characterInventory, GameObject weaponSlot)
+    {
+        bool prevWeaponSame = false;
+
+        if (Weapon != null)
+        {
+            if (Weapon == weaponPickup)
+                prevWeaponSame = true;
+
+            Destroy(weaponSlot.transform.GetChild(0).gameObject); //destroy the first child of the weapon slot game object/transform
+
+            //reset
+            Weapon = null;
+            currentDamage = baseDamage;
+        }
+
+        return prevWeaponSame;
+    }
+
     //EQUIP ARMOR
     public void EquipArmor(ItemPickUp armorPickup, CharacterInventory characterInventory)
     {
         switch (armorPickup.itemDefinition.itemArmorSubType)
-        {           
+        {
             case ItemArmorSubtype.HEAD:
                 HeadArmor = armorPickup;
                 currentResistance += armorPickup.itemDefinition.itemAmount;
@@ -148,6 +168,78 @@ public class CharacterStats_SO : ScriptableObject
                 currentResistance += armorPickup.itemDefinition.itemAmount;
                 break;
         }
+    }
+
+    //UN-EQUIP ARMOR
+    public bool UnEquipArmor(ItemPickUp armorPickup, CharacterInventory characterInventory)
+    {
+        bool prevArmorSame = false;
+
+        switch (armorPickup.itemDefinition.itemArmorSubType)
+        {
+            case ItemArmorSubtype.HEAD:
+                if (HeadArmor != null)
+                {
+                    if (HeadArmor == armorPickup)
+                        prevArmorSame = true;
+
+                    //unequip
+                    currentResistance -= armorPickup.itemDefinition.itemAmount;
+                    //reset
+                    HeadArmor = null;
+                }
+                break;
+            case ItemArmorSubtype.CHEST:
+                if (ChestArmor != null)
+                {
+                    if (ChestArmor == armorPickup)
+                        prevArmorSame = true;
+
+                    //unequip
+                    currentResistance -= armorPickup.itemDefinition.itemAmount;
+                    //reset
+                    ChestArmor = null;
+                }
+                break;
+            case ItemArmorSubtype.HANDS:
+                if (HandArmor != null)
+                {
+                    if (HandArmor == armorPickup)
+                        prevArmorSame = true;
+
+                    //unequip
+                    currentResistance -= armorPickup.itemDefinition.itemAmount;
+                    //reset
+                    HandArmor = null;
+                }
+                break;
+            case ItemArmorSubtype.LEGS:
+                if (LegArmor != null)
+                {
+                    if (LegArmor == armorPickup)
+                        prevArmorSame = true;
+
+                    //unequip
+                    currentResistance -= armorPickup.itemDefinition.itemAmount;
+                    //reset
+                    LegArmor = null;
+                }
+                break;
+            case ItemArmorSubtype.BOOTS:
+                if (FootArmor != null)
+                {
+                    if (FootArmor == armorPickup)
+                        prevArmorSame = true;
+
+                    //unequip
+                    currentResistance -= armorPickup.itemDefinition.itemAmount;
+                    //reset
+                    FootArmor = null;
+                }
+                break;
+        }
+
+        return prevArmorSame;
     }
 
     //STAT DECREASERS
