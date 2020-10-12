@@ -1,8 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterInventory : MonoBehaviour
 {
-    
+    //VARIABLE DECLERATIONS
+    public static CharacterInventory Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 }

@@ -45,6 +45,7 @@ public class CharacterStats_SO : ScriptableObject
     public float baseResistance = 0f;
     public float currentResistance = 0f;
 
+    public float maxEncumbrance = 0f;
     public float currentEncumbrance = 0f;
 
     public int charExperience = 0;
