@@ -78,7 +78,7 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ApplyWealth(int wealthAmount)
+    public void GiveWealth(int wealthAmount)
     {
         if (currentWealth + wealthAmount > maxWealth)
         {
@@ -90,17 +90,17 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ApplyDamage(int damageAmount)
-    {
-        if (currentDamage + damageAmount > baseDamage)
-        {
-            currentDamage = baseDamage;
-        }
-        else
-        {
-            currentDamage += damageAmount;
-        }
-    }
+    //public void ApplyDamage(int damageAmount)
+    //{
+    //    if (currentDamage + damageAmount > baseDamage)
+    //    {
+    //        currentDamage = baseDamage;
+    //    }
+    //    else
+    //    {
+    //        currentDamage += damageAmount;
+    //    }
+    //}
 
     public void ApplyResistance(int resistanceAmount)
     {
@@ -114,6 +114,13 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
+    //EQUIP WEAPONS
+    public void EquipWeapon(ItemPickUp weaponPickUp, CharacterInventory characterInventory, GameObject go)
+    {
+        Weapon = weaponPickUp;
+
+        currentDamage = baseDamage + weaponPickUp.itemDefinition.itemAmount;
+    }
 
     //STAT DECREASERS
     public void TakeDamage(int amount)
