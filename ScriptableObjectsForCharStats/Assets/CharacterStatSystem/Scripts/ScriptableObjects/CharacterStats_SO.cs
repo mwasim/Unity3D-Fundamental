@@ -122,6 +122,34 @@ public class CharacterStats_SO : ScriptableObject
         currentDamage = baseDamage + weaponPickUp.itemDefinition.itemAmount;
     }
 
+    //EQUIP ARMOR
+    public void EquipArmor(ItemPickUp armorPickup, CharacterInventory characterInventory)
+    {
+        switch (armorPickup.itemDefinition.itemArmorSubType)
+        {           
+            case ItemArmorSubtype.HEAD:
+                HeadArmor = armorPickup;
+                currentResistance += armorPickup.itemDefinition.itemAmount;
+                break;
+            case ItemArmorSubtype.CHEST:
+                ChestArmor = armorPickup;
+                currentResistance += armorPickup.itemDefinition.itemAmount;
+                break;
+            case ItemArmorSubtype.HANDS:
+                HandArmor = armorPickup;
+                currentResistance += armorPickup.itemDefinition.itemAmount;
+                break;
+            case ItemArmorSubtype.LEGS:
+                LegArmor = armorPickup;
+                currentResistance += armorPickup.itemDefinition.itemAmount;
+                break;
+            case ItemArmorSubtype.BOOTS:
+                FootArmor = armorPickup;
+                currentResistance += armorPickup.itemDefinition.itemAmount;
+                break;
+        }
+    }
+
     //STAT DECREASERS
     public void TakeDamage(int amount)
     {
@@ -130,7 +158,7 @@ public class CharacterStats_SO : ScriptableObject
         if (currentHealth <= 0)
         {
             //chracter dies
-            Death(); 
+            Death();
         }
     }
 
