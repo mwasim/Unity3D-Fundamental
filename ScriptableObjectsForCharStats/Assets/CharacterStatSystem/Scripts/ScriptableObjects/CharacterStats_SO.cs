@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor; //NOTE: Your game will not build if you have a script with a UnityEditor reference inside your scene (Yet, this is great for debugging) //commented for now
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewStats", menuName = "Character/Stats", order = 1)]
@@ -310,5 +311,15 @@ public class CharacterStats_SO : ScriptableObject
         baseDamage = charLevelUps[charLevel - 1].baseDamage;
         baseResistance = charLevelUps[charLevel - 1].baseResistance;
         maxEncumbrance = charLevelUps[charLevel - 1].maxEncumbrance;
+    }
+
+
+    //SAVE CHARACTER DATA
+    public void SaveCharacterData()
+    {
+        //CAN BE UNCOMMENTED IN THE FUTURE - commented now because referencing UnityEditor namespace will not let us build the game
+        //saveDataOnClose = true;
+
+        //EditorUtility.SetDirty(this); //it flags to to tell the Unity that data of this object needs to be re-saved
     }
 }

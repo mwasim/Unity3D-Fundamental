@@ -41,6 +41,16 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    //UPDATE
+    private void Update()
+    {
+        //TODO: This can be uncommented in the future
+        //if (Input.GetKeyDown(KeyCode.S)) //save character data
+        //{           
+        //    _characterDefinition.SaveCharacterData();
+        //}
+    }
+
     //STATS INCREASERS
     public void ApplyHealth(int amount)
     {
