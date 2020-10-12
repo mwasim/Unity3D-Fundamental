@@ -294,4 +294,21 @@ public class CharacterStats_SO : ScriptableObject
         //TODO: 1- Call the GameManager for Death Stat to Trigger Respawn
         //TODO: 2- Display Death Visualisations
     }
+
+    private void LevelUp()
+    {
+        charLevel += 1;
+
+        //TODO: DISPLAY LEVEL UP VISUALISATIONS
+
+        //TODO: INCREASE LEVEL STATS BASED ON THE LEVEL
+
+        //increase stats
+        maxHealth = charLevelUps[charLevel - 1].maxHealth;
+        maxMana = charLevelUps[charLevel - 1].maxMana;
+        maxWealth = charLevelUps[charLevel - 1].maxWealth;
+        baseDamage = charLevelUps[charLevel - 1].baseDamage;
+        baseResistance = charLevelUps[charLevel - 1].baseResistance;
+        maxEncumbrance = charLevelUps[charLevel - 1].maxEncumbrance;
+    }
 }
