@@ -13,8 +13,24 @@ public class MouseManager : MonoBehaviour
 
     public EventVector3 OnClickEnvironment;
 
+    private bool _useDefaultCursor = false;
+
+    private void Start()
+    {
+        //event should be registered at the time the object is created
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+    }
+
     void Update()
     {
+        //if game is paused, the default cursor should be used and no need to execute further statements
+        if (_useDefaultCursor)
+        {
+            Cursor.SetCursor(pointer, new Vector2(16, 16), CursorMode.Auto);
+
+            return;
+        }
+
         // Raycast into scene
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50, clickableLayer.value))
@@ -48,6 +64,11 @@ public class MouseManager : MonoBehaviour
         {
             Cursor.SetCursor(pointer, Vector2.zero, CursorMode.Auto);
         }
+    }
+
+    private void HandleGameStateChanged(GameManager.GameState currentGameState, GameManager.GameState previousGameState)
+    {
+        _useDefaultCursor = currentGameState == GameManager.GameState.PAUSED;
     }
 }
 
