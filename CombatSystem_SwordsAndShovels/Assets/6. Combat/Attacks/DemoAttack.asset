@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5942052aa25f44efbf2ad41354ce652, type: 3}
+  m_Name: DemoAttack
+  m_EditorClassIdentifier: 
+  CoolDown: 0
+  Range: 0
+  MinDamage: 2
+  MaxDamage: 5
+  CriticalMultiplier: 2
+  CriticalChance: 0.3
