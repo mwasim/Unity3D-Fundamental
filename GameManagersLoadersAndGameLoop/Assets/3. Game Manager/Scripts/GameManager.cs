@@ -1,15 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Events;
-
-//make it accessible in the Unity's Inspector by making it Serializable
-[System.Serializable]
-public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> //incoming and current game states
-{
-
-}
 
 public class GameManager : Singleton<GameManager>
 {
@@ -36,7 +27,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     //events
-    public EventGameState OnGameStateChanged; //any other systems access to this event can listen/subscribe to this event
+    public Events.EventGameState OnGameStateChanged; //any other systems access to this event can listen/subscribe to this event
 
     //Keep track of other game managers
     [SerializeField] private GameObject[] _systemPrefabs; //To be populate via the Unity Inspector
@@ -64,6 +55,15 @@ public class GameManager : Singleton<GameManager>
 
         //start the main scene on the start of the game
         //LoadLevel("Main"); //Main scene should be loaded on specific event based on the specific game state, not at the start
+
+        //after system prefabs are instantiated, we can register for events
+        UIManager.Instance.OnMainMenuFadeComplete.AddListener(HandleMainMenuFadeComplete);
+    }
+
+    private void HandleMainMenuFadeComplete(bool isFadeOut)
+    {
+        if (!isFadeOut) //only when restart button is clicked and events are bubbled up
+            UnLoadLevel(_currentLevelName); //unloads the current level
     }
 
     private void Update()
@@ -86,10 +86,10 @@ public class GameManager : Singleton<GameManager>
         switch (CurrentGameState)
         {
             case GameState.PREGAME:
-                Time.timeScale = 1f; 
+                Time.timeScale = 1f;
                 break;
             case GameState.RUNNING:
-                Time.timeScale = 1f; 
+                Time.timeScale = 1f;
                 break;
             case GameState.PAUSED:
                 Time.timeScale = 0f; //Pause all simulations in the game
@@ -209,12 +209,17 @@ public class GameManager : Singleton<GameManager>
 
     public void RestartGame()
     {
-
+        Debug.Log("RESTART GAME...");
+        UpdateState(GameState.PREGAME); //based on the game state, scenes can be unloaded etc. / MainMenu responds to this
     }
 
     public void QuitGame()
     {
+        //TODO:
+        //Implement Auto-saving
+        //Implement features for quiting
 
+        Application.Quit(); //shut down the game
     }
 
     public void TogglePause()
