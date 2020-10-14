@@ -13,6 +13,7 @@ public class CharacterStats : MonoBehaviour
     public CharacterStats()
     {
         charInv = CharacterInventory.instance;
+        Debug.Log("Character Inventory initialized." + charInv);
     }
     #endregion
 
@@ -84,15 +85,20 @@ public class CharacterStats : MonoBehaviour
     #endregion
 
     #region Weapon and Armor Change
-    // TODO: Add functions to change equipment
     public void ChangeWeapon(ItemPickUp weaponPickUp)
     {
-
+        if (!characterDefinition.UnEquipWeapon(weaponPickUp, charInv, characterWeaponSlot)) //unequip existing, and equip new
+        {
+            characterDefinition.EquipWeapon(weaponPickUp, charInv, characterWeaponSlot);
+        }
     }
 
     public void ChangeArmor(ItemPickUp armorPickUp)
     {
-
+        if (!characterDefinition.UnEquipArmor(armorPickUp, charInv)) //unequip existing, and equip new
+        {
+            characterDefinition.EquipArmor(armorPickUp, charInv);
+        }
     }
     #endregion
 

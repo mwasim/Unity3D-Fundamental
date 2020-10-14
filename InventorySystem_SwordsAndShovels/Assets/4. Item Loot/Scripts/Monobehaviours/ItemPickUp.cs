@@ -27,8 +27,7 @@ public class ItemPickUp : MonoBehaviour
 
     void StoreItem()
     {
-        // TODO: Call store item
-        //charInventory.StoreItem();
+        charInventory.StoreItem(this);
     }
 
     public void UseItem()
@@ -46,12 +45,10 @@ public class ItemPickUp : MonoBehaviour
                 charStats.GiveWealth(itemDefinition.itemAmount);
                 break;
             case ItemTypeDefinitions.WEAPON:
-                // TODO: Call change weapon
-                //charStats.ChangeWeapon();
+                charStats.ChangeWeapon(this);
                 break;
             case ItemTypeDefinitions.ARMOR:
-                // TODO: Call change armor
-                //charStats.ChangeArmor();
+                charStats.ChangeArmor(this);
                 break;
         }
     }
