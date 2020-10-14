@@ -10,8 +10,10 @@ public class MouseManager : MonoBehaviour
     public Texture2D pointer;
     public Texture2D target;
     public Texture2D doorway;
+    public Texture2D sword; //icon the cursor will change to when the player hovers over the attackable object
 
     public EventVector3 OnClickEnvironment;
+    public EventGameObject OnClickAttackable;
 
     private bool _useDefaultCursor = false;
 
@@ -56,6 +58,12 @@ public class MouseManager : MonoBehaviour
                 door = true;
             }
 
+            bool isAttackable = hit.collider.GetComponent<IAttackable>() != null;
+            if (isAttackable)
+            {
+                Cursor.SetCursor(sword, new Vector2(16, 16), CursorMode.Auto);
+            }
+
             // If environment surface is clicked, invoke callbacks.
             if (Input.GetMouseButtonDown(0))
             {
@@ -63,6 +71,12 @@ public class MouseManager : MonoBehaviour
                 {
                     Transform doorway = hit.collider.gameObject.transform;
                     OnClickEnvironment.Invoke(doorway.position + doorway.forward * 10);
+                }
+                else if (isAttackable)
+                {
+                    //invoke event if attackable
+                    var attackable = hit.collider.gameObject;
+                    OnClickAttackable.Invoke(attackable);
                 }
                 else if (!chest)
                 {
@@ -75,3 +89,6 @@ public class MouseManager : MonoBehaviour
 
 [System.Serializable]
 public class EventVector3 : UnityEvent<Vector3> { }
+
+[System.Serializable]
+public class EventGameObject : UnityEvent<GameObject> { }

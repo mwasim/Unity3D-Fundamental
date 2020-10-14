@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - InventoryDisplaySlot
+  - LegArmor
+  - Boots
+  - Misc1
+  - HeadArmor
+  - Misc2
+  - Gloves
+  - ChestArmor
+  - Weapon
+  - HardFloor
+  - Doorway
+  - Chest
   layers:
   - Default
   - TransparentFX
@@ -13,7 +25,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Clickable
   - 
   - 
   - 
