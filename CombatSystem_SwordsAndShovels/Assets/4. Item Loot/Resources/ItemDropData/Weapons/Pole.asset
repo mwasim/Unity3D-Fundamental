@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff583f062ffbf244985485bd800c07b, type: 3}
-  m_Name: Sword
+  m_Name: Pole
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Pole
   itemType: 3
   itemArmorSubType: 0
   itemAmount: 10
   spawnChanceWeight: 5
-  itemMaterial: {fileID: 2100000, guid: 1c0b8ab731c6b304086751987766544f, type: 2}
+  itemMaterial: {fileID: 2100000, guid: 944bd8522149c0641a0445a41c93fecc, type: 2}
   itemIcon: {fileID: 21300000, guid: 3b2626a4a9b97ad42abbba3f24ceff0b, type: 3}
   itemSpawnObject: {fileID: 54985058832966930, guid: bdddc3344be6c184080352060c3061ed, type: 3}
-  weaponSlotObject: {fileID: 11400000, guid: b9d31abacf94c41359aa2b40192f0b52, type: 2}
+  weaponSlotObject: {fileID: 11400000, guid: ab9835a088c6949bf8e7835236069b9c, type: 2}
   isEquipped: 0
   isInteractable: 1
   isStorable: 1

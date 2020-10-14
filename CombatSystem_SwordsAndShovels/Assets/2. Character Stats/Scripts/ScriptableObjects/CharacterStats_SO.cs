@@ -96,7 +96,7 @@ public class CharacterStats_SO : ScriptableObject
 
         weapon = weaponPickUp;
         charInventory.inventoryDisplaySlots[2].sprite = weaponPickUp.itemDefinition.itemIcon;
-        newWeapon = Instantiate(weaponPickUp.itemDefinition.weaponSlotObject, weaponSlot.transform);
+        newWeapon = Instantiate(weaponPickUp.itemDefinition.weaponSlotObject.weaponPrefab, weaponSlot.transform);
         currentDamage = baseDamage + weapon.itemDefinition.itemAmount;
     }
 

@@ -98,9 +98,14 @@ public class CharacterStats : MonoBehaviour
         return characterDefinition.currentHealth;
     }
 
-    public ItemPickUp GetCurrentWeapon()
+    public WeaponDefinition GetCurrentWeapon()
     {
-        return characterDefinition.weapon;
+        if (characterDefinition.weapon != null)
+        {
+            return characterDefinition.weapon.itemDefinition.weaponSlotObject;
+        }
+
+        return null;
     }
 
     public int GetDamage()
