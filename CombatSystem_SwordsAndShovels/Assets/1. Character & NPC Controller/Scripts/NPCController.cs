@@ -8,6 +8,8 @@ public class NPCController : MonoBehaviour
     public Transform[] waypoints;
     public AttackDefinition attack;
 
+    public Transform SpellHotSpot; //position to spawn spells
+
     int index;
     float speed, agentSpeed;
     Transform player;
@@ -76,11 +78,12 @@ public class NPCController : MonoBehaviour
         {
             ((WeaponDefinition)attack).ExecuteAttack(gameObject, player.gameObject);
         }
-        //else if (attack is Spell)
-        //{
-        //    ((Spell)attack).Cast(gameObject, SpellHotSpot.position, player.transform.position, LayerMask.NameToLayer("EnemySpells"));
-        //    GetComponent<AudioSource>().PlayOneShot(spellClip);
-        //}
+        else if (attack is Spell)
+        {
+            Debug.Log(SpellHotSpot);
+            ((Spell)attack).Cast(gameObject, SpellHotSpot.position, player.transform.position, LayerMask.NameToLayer("EnemySpells"));
+            //GetComponent<AudioSource>().PlayOneShot(spellClip);  //todo 
+        }
     }
 
     void Patrol()
