@@ -1076,6 +1076,9 @@ GameObject:
   - component: {fileID: 1363932594}
   - component: {fileID: 1363932595}
   - component: {fileID: 1363932596}
+  - component: {fileID: 1363932598}
+  - component: {fileID: 1363932597}
+  - component: {fileID: 1363932599}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -1214,6 +1217,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollingTextPrefab: {fileID: 1515170809, guid: e8259e4f00678416a9be9bb792f86e21, type: 3}
   textColor: {r: 0.8584906, g: 0.75560105, b: 0.23891956, a: 1}
+--- !u!114 &1363932597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363932588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54ceda1a3dc74b8bbc5d04b03942869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1363932598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363932588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c113f80cb5d44ff43a6126a0384b7096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDefinition_Template: {fileID: 11400000, guid: b74398863c5c44cad99cbd5764ca1dc5, type: 2}
+  characterDefinition: {fileID: 0}
+  charInv: {fileID: 0}
+  characterWeaponSlot: {fileID: 0}
+--- !u!114 &1363932599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363932588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc95c60ce18bc4fb5bf7bc444032a1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437442453
 GameObject:
   m_ObjectHideFlags: 0
