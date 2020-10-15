@@ -267,11 +267,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd2e2c2c623614ef2adc5464bacbc43c, type: 3}
---- !u!4 &626829875 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6031609253528784611, guid: bd2e2c2c623614ef2adc5464bacbc43c, type: 3}
-  m_PrefabInstance: {fileID: 6031609254020277456}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &729649045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -954,7 +949,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollingTextPrefab: {fileID: 1515170809, guid: e8259e4f00678416a9be9bb792f86e21, type: 3}
-  textColor: {r: 0.91194713, g: 0.54013884, b: 0.9622642, a: 1}
+  textColor: {r: 0.9433962, g: 0.22694907, b: 0.43271062, a: 1}
+--- !u!114 &1302807684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302807679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54ceda1a3dc74b8bbc5d04b03942869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1302807685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302807679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62fcb92b1f934c0bb99c93860b9aab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1302807689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302807679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46fbc6f8a5cd64357bf1ccc2f38c5e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RagdollObject: {fileID: 114713055888181540, guid: 26e4107048df44e499d3c48ec0033bb3, type: 3}
+  Force: 3000
+  Lift: 1
+--- !u!114 &1302807690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302807679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc95c60ce18bc4fb5bf7bc444032a1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1304911318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1854,10 +1900,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 1203657078}
-    - target: {fileID: 5918701548056821321, guid: bd2e2c2c623614ef2adc5464bacbc43c, type: 3}
-      propertyPath: SpellHotSpot
-      value: 
-      objectReference: {fileID: 626829875}
     - target: {fileID: 6030947370176753115, guid: bd2e2c2c623614ef2adc5464bacbc43c, type: 3}
       propertyPath: m_Name
       value: BatGoblin (1)

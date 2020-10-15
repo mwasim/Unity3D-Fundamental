@@ -37,6 +37,8 @@ public class NPCController : MonoBehaviour
 
         timeOfLastAttack = float.MinValue;
         playerIsAlive = true;
+
+        player.gameObject.GetComponent<DestructedEvent>().IDied += PlayerDied;
     }
 
     private void PlayerDied()
