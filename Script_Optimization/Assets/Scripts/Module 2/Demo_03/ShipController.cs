@@ -21,13 +21,13 @@ public class ShipController : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
-            Profiler.BeginSample("DISTANCE");
+            Profiler.BeginSample("DISTANCE"); //Helps see the sections of the code in the Profileer
 
             float currentDistance = Vector2.Distance(transform.position, target.transform.position);
 
             Profiler.EndSample();
 
-            Profiler.BeginSample("SqrMAGNITUDE");
+            Profiler.BeginSample("SqrMAGNITUDE");  //Helps see the sections of the code in the Profileer
 
             float currentDistance2 = Vector2.SqrMagnitude(target.transform.position - transform.position);
 
