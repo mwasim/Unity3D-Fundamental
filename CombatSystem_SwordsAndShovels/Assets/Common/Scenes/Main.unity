@@ -190,27 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207a9ba438db24242bd95911eb786908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &282202271 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1880194204201268, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
-  m_PrefabInstance: {fileID: 939931711}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &282202272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282202271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c113f80cb5d44ff43a6126a0384b7096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterDefinition_Template: {fileID: 11400000, guid: 916ca860e851c4723993b27e311e13e5, type: 2}
-  characterDefinition: {fileID: 0}
-  charInv: {fileID: 1644563398}
-  characterWeaponSlot: {fileID: 0}
 --- !u!1001 &370430048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +367,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 282202272, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
+      propertyPath: charInv
+      value: 
+      objectReference: {fileID: 1644563398}
     - target: {fileID: 1880194204201268, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
       propertyPath: m_Name
       value: BatGoblin (1)
@@ -424,6 +407,18 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4453258726093468, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453258726093468, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453258726093468, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114814422407144102, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
@@ -440,10 +435,6 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 1203657078}
-    - target: {fileID: 114814422407144102, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
-      propertyPath: attack
-      value: 
-      objectReference: {fileID: 11400000, guid: 2c36eeca228864bacb6e9ec53b836c57, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef613d77160d9a24f891c787d244dd90, type: 3}
 --- !u!1001 &1032894855
@@ -628,6 +619,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1644408783840310, guid: dd51aa0141228c3478f60d3fe5ba00eb, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4621171860792138, guid: dd51aa0141228c3478f60d3fe5ba00eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -1043,7 +1038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollingTextPrefab: {fileID: 1515170809, guid: e8259e4f00678416a9be9bb792f86e21, type: 3}
-  textColor: {r: 0.6911262, g: 0.9528302, b: 0.31910825, a: 1}
+  textColor: {r: 0.91194713, g: 0.54013884, b: 0.9622642, a: 1}
 --- !u!1001 &1304911318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1584,6 +1579,10 @@ PrefabInstance:
     - target: {fileID: 114106425073214990, guid: 4052bdf0c3f66bb4a8e22553843b139d, type: 3}
       propertyPath: OnClickAttackable.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114106425073214990, guid: 4052bdf0c3f66bb4a8e22553843b139d, type: 3}
+      propertyPath: clickableLayer.m_Bits
+      value: 768
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4052bdf0c3f66bb4a8e22553843b139d, type: 3}
