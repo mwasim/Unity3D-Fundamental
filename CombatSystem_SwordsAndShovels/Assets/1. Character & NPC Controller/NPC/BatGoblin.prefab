@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 282202275}
   - component: {fileID: 282202276}
   - component: {fileID: 282202277}
+  - component: {fileID: 5196670583802756335}
   m_Layer: 9
   m_Name: BatGoblin
   m_TagString: Untagged
@@ -267,3 +268,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc95c60ce18bc4fb5bf7bc444032a1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5196670583802756335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880194204201268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46fbc6f8a5cd64357bf1ccc2f38c5e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RagdollObject: {fileID: 4650988855028043151, guid: 5e5ad913c9e464829ab429dc4265e5ec, type: 3}
+  Force: 5000
+  Lift: 1
