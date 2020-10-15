@@ -6,6 +6,7 @@ public class NPCController : MonoBehaviour
     public float patrolTime = 10;
     public float aggroRange = 10;
     public Transform[] waypoints;
+    public AttackDefinition attack;
 
     int index;
     float speed, agentSpeed;
@@ -13,6 +14,9 @@ public class NPCController : MonoBehaviour
 
     Animator animator;
     NavMeshAgent agent;
+
+    private float timeOfLastAttack;
+    private bool playerIsAlive;
 
     void Awake()
     {
@@ -28,12 +32,55 @@ public class NPCController : MonoBehaviour
         {
             InvokeRepeating("Patrol", Random.Range(0, patrolTime), patrolTime);
         }
+
+        timeOfLastAttack = float.MinValue;
+        playerIsAlive = true;
+    }
+
+    private void PlayerDied()
+    {
+        playerIsAlive = false;
     }
 
     void Update()
     {
         speed = Mathf.Lerp(speed, agent.velocity.magnitude, Time.deltaTime * 10);
         animator.SetFloat("Speed", speed);
+
+        float timeSinceLastAttack = Time.time - timeOfLastAttack;
+        Debug.Log("Attack: " + attack);
+        bool attackOnCooldown = timeSinceLastAttack < attack?.CoolDown;
+
+        agent.isStopped = attackOnCooldown;
+
+        if (playerIsAlive)
+        {
+            float distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
+            bool attackInRange = distanceFromPlayer < attack?.Range;
+
+            if (!attackOnCooldown && attackInRange)
+            {
+                transform.LookAt(player.transform);
+                timeOfLastAttack = Time.time;
+                animator.SetTrigger("Attack");
+            }
+        }
+    }
+
+    public void Hit()
+    {
+        if (!playerIsAlive)
+            return;
+
+        if (attack is WeaponDefinition)
+        {
+            ((WeaponDefinition)attack).ExecuteAttack(gameObject, player.gameObject);
+        }
+        //else if (attack is Spell)
+        //{
+        //    ((Spell)attack).Cast(gameObject, SpellHotSpot.position, player.transform.position, LayerMask.NameToLayer("EnemySpells"));
+        //    GetComponent<AudioSource>().PlayOneShot(spellClip);
+        //}
     }
 
     void Patrol()
