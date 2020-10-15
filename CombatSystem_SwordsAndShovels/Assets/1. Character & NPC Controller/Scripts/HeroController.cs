@@ -5,6 +5,8 @@ using UnityEngine.AI;
 public class HeroController : MonoBehaviour
 {
     public AttackDefinition demoAttack;
+    public Aoe aoeStompAttack;
+
     Animator animator;
     NavMeshAgent agent;
     CharacterStats stats;
@@ -93,5 +95,29 @@ public class HeroController : MonoBehaviour
         {
             stats.GetCurrentWeapon().ExecuteAttack(gameObject, _attackTarget);
         }
+    }
+
+    public void DoStomp(Vector3 destination)
+    {
+        StopAllCoroutines();
+        agent.isStopped = false;
+        StartCoroutine(GoToTargetAndStomp(destination));
+    }
+
+    private IEnumerator GoToTargetAndStomp(Vector3 destination)
+    {
+        while (Vector3.Distance(transform.position, destination) > aoeStompAttack.Range)
+        {
+            agent.destination = destination;
+            yield return null;
+        }
+        agent.isStopped = true;
+        Stomp();
+        animator.SetTrigger("Stomp");
+    }
+
+    public void Stomp()
+    {
+        aoeStompAttack.Fire(gameObject, gameObject.transform.position, LayerMask.NameToLayer("PlayerSpells"));
     }
 }

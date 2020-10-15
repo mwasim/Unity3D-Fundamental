@@ -13,6 +13,7 @@ public class MouseManager : MonoBehaviour
     public Texture2D sword; //icon the cursor will change to when the player hovers over the attackable object
 
     public EventVector3 OnClickEnvironment;
+    public EventVector3 OnRightClickEnvironment;
     public EventGameObject OnClickAttackable;
 
     private bool _useDefaultCursor = false;
@@ -81,6 +82,13 @@ public class MouseManager : MonoBehaviour
                 else if (!chest)
                 {
                     OnClickEnvironment.Invoke(hit.point);
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                if (!door && !chest)
+                {
+                    OnRightClickEnvironment.Invoke(hit.point);
                 }
             }
         }
