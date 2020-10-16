@@ -10,9 +10,20 @@ public class BulletController : MonoBehaviour
     private Vector2 endPosition;
 
     private string[] makeMeHeavy = new string[750000];
-    
+
     // Start is called before the first frame update
-    private void Start()
+    //private void Start()
+    //{
+    //    myTransform = transform;
+
+    //    maxVerticalPosition = Camera.main.ViewportToWorldPoint(new Vector2(Random.value, 1)).y;
+    //    endPosition = new Vector2(myTransform.position.x, maxVerticalPosition + 1);
+
+    //    StartCoroutine(Move(speed));
+    //}
+
+    //While using object pooling, we use OnEnable method to do initializations instead of using the Start method, because game objects are enabled or disabled and not destroyed
+    private void OnEnable() 
     {
         myTransform = transform;
 
@@ -26,7 +37,10 @@ public class BulletController : MonoBehaviour
     {
         if (myTransform.position.y > maxVerticalPosition)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+
+            //In object pooling, we don't need to destroy the game object, we can simple disable it
+            gameObject.SetActive(false);
         }
     }
  
