@@ -180,3 +180,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6beef1d4762534865a9c1daeac6440c2, type: 3}
+--- !u!1 &1925467774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8370064124817886487, guid: 6beef1d4762534865a9c1daeac6440c2, type: 3}
+  m_PrefabInstance: {fileID: 1925467773}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1925467775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925467774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c094b514ba204ba7be206c383369257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intVariable: 30
+  floatVariable: 0.95
+  stringVariable: Test String
+  v: {x: 0, y: 0, z: 0}
+  c: {r: 0.3763854, g: 0.6226415, b: 0.3260057, a: 0}
+  l:
+    serializedVersion: 2
+    m_Bits: 0
+  a:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
