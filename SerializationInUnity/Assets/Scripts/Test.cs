@@ -33,15 +33,15 @@ public class Test : MonoBehaviour
     public TestClass cl;
     public TestStruct st;
 
-    // Start is called before the first frame update
-    void Start()
+    //This method runs when a change is made to the serialized information in the editor
+    private void OnValidate()
     {
-        
-    }
+        //PlayerPrefs - Store and access Player preferences between game sessions
+        //On Windows this info is saved in the Registery, and on Mac, this info is saved in the Library preferences folder
+        //On Mac, this info got saved on Library/Preferences/unity.GameDev.Game saves and serialization.plist (e.g. TestInt = 34)
+        PlayerPrefs.SetInt("TestInt", 34);
+        PlayerPrefs.Save();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        Debug.Log("OnValidate method called..");
+    }    
 }

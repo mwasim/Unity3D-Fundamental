@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c094b514ba204ba7be206c383369257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intVariable: 30
+  intVariable: 12
   floatVariable: 0.95
   stringVariable: Test String
   v: {x: 0, y: 0, z: 0}
@@ -229,3 +229,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  g: {fileID: 0}
+  r: {fileID: 0}
+  t: {fileID: 0}
+  ints: 
+  floats: []
+  cl:
+    i: 0
+    f: 0
+  st:
+    i: 0
+    f: 0
