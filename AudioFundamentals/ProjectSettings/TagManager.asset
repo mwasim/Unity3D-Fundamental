@@ -8,6 +8,7 @@ TagManager:
   - Doorway
   - Water
   - EnemyZone
+  - Ambience
   layers:
   - Default
   - TransparentFX

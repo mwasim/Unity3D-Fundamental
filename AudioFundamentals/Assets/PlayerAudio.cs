@@ -8,6 +8,8 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioClip _splashSound;
     [SerializeField] private AudioMixerSnapshot _idleSnapshot;
     [SerializeField] private AudioMixerSnapshot _auxInSnapshot;
+    [SerializeField] private AudioMixerSnapshot _ambIdleSnapshot;
+    [SerializeField] private AudioMixerSnapshot _ambInSnapshot;
     [SerializeField] private LayerMask _enemyMask;
 
     private AudioSource _audioSource;
@@ -48,6 +50,11 @@ public class PlayerAudio : MonoBehaviour
         {
             _auxInSnapshot.TransitionTo(0.5f);
         }
+
+        if (other.CompareTag("Ambience"))
+        {
+            _ambInSnapshot.TransitionTo(0.5f);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -60,6 +67,11 @@ public class PlayerAudio : MonoBehaviour
         if (other.CompareTag("EnemyZone"))
         {
             _idleSnapshot.TransitionTo(0.5f);
+        }
+
+        if (other.CompareTag("Ambience"))
+        {
+            _ambIdleSnapshot.TransitionTo(0.5f);
         }
     }
 }
