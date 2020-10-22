@@ -543,6 +543,9 @@ MonoBehaviour:
   _splashSound: {fileID: 8300000, guid: 68e64b24d907fdb47b0b36fac4227108, type: 3}
   _idleSnapshot: {fileID: 24500006, guid: 93f70e8088a214f7289a314a4e98f242, type: 2}
   _auxInSnapshot: {fileID: -1062825697673701138, guid: 93f70e8088a214f7289a314a4e98f242, type: 2}
+  _enemyMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &495634415 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114112542000598322, guid: dd51aa0141228c3478f60d3fe5ba00eb, type: 3}

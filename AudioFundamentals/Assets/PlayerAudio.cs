@@ -8,19 +8,33 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioClip _splashSound;
     [SerializeField] private AudioMixerSnapshot _idleSnapshot;
     [SerializeField] private AudioMixerSnapshot _auxInSnapshot;
+    [SerializeField] private LayerMask _enemyMask;
 
     private AudioSource _audioSource;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
-
+    private bool _isEnemyNear;
+   
     // Update is called once per frame
     void Update()
     {
+        var hits = Physics.SphereCastAll(transform.position, 5f, transform.forward, 0f, _enemyMask);
 
+        if(hits.Length > 0) //enemies nearby
+        {
+            if (!_isEnemyNear)
+            {
+                _auxInSnapshot.TransitionTo(0.5f);
+
+                _isEnemyNear = true;
+            }
+        }
+        else
+        {
+            if (_isEnemyNear)
+            {
+                _idleSnapshot.TransitionTo(0.5f);
+                _isEnemyNear = false;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
