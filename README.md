@@ -1,2 +1,2 @@
 # unity3d-fundamental
-Unity 3D Game Development Projects
+Unity 3D fundamentals game development training.
